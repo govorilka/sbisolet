@@ -3,5 +3,6 @@ project(sbisolet)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(sbisolet main.cpp src/Scene.cpp src/Scene.h)
+include_directories(src)
+add_executable(sbisolet main.cpp src/Scene.cpp src/Scene.h src/precomp.h)
 target_link_libraries(sbisolet sfml-system sfml-window sfml-graphics sfml-audio)

@@ -1,22 +1,26 @@
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
+#include "precomp.h"
+#include "Scene.h"
+
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "SBISolet");
+    RenderWindow window(VideoMode::getDesktopMode(), "SBISolet");
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
-    sf::Clock clock;
-    sf::Time deltaTime = sf::Time::Zero;
+    Scene scene{};
+    Clock clock;
+    Time deltaTime;
     while (window.isOpen())
     {
-        sf::Event event{};
-        deltaTime += clock.restart();
+        Event event{};
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            if (event.type == Event::Closed) {
                 window.close();
+            }
         }
-        window.clear(sf::Color(0, 0, 255));
+        deltaTime = clock.restart();
+        scene.update(deltaTime.asSeconds());
+        scene.render(window);
         window.display();
     }
     return EXIT_SUCCESS;
