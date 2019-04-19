@@ -5,4 +5,7 @@
 
 #include "Config.h"
 
+#include <algorithm>
+#include <iostream>
+
 using namespace sf;

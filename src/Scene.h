@@ -4,12 +4,16 @@
 #include "UI.h"
 #include "terrain.h"
 #include "Camera.h"
+#include "Kamikaze.h"
+#include "Balloon.h"
 
 class Scene {
     UI ui;
     Plane plane;
     Camera camera;
     Terrain terrain;
+    Kamikaze kamikaze;
+    Balloon balloon;
 
 public:
     explicit Scene(RenderWindow& window);

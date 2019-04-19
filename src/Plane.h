@@ -5,6 +5,7 @@ class Plane {
     Vector2f velocity;
     Texture texture;
 
+    int hp;
     float angle;
 public:
     static Plane* instance;
@@ -12,6 +13,12 @@ public:
     Plane();
 
     const Vector2f& getPosition();
+
+    bool isAlive();
+    void addHP(int value);
+    int getHP();
+
+    const FloatRect getGlobalBounds();
 
     void initScene();
     void update(float deltaTime);
@@ -22,4 +29,6 @@ private:
 
     float getCurrentAngle();
     float calculateRotation();
+
+    void setAngle(float value);
 };
