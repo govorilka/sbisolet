@@ -1,11 +1,12 @@
 #pragma once
 
-#include "Plane.h"
 
-class Scene {
-    Plane plane;
-
+class UI {
 public:
+
+    UI();
     void update(float deltaTime);
     void render(RenderWindow& window);
 };
+
+
