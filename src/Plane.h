@@ -1,11 +1,8 @@
 #pragma once
 
-#include "Plane.h"
-
-class Scene {
-    Plane plane;
-
+class Plane {
 public:
+    Plane();
     void update(float deltaTime);
     void render(RenderWindow& window);
 };
