@@ -1,5 +1,6 @@
 #include "precomp.h"
 #include "Scene.h"
+#include "UI.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -8,7 +9,10 @@ int main()
     RenderWindow window(VideoMode::getDesktopMode(), "SBISolet");
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
-    Scene scene(window);
+
+    Scene scene{window};
+    scene.initScene();
+
     Clock clock;
     Time deltaTime;
     while (window.isOpen())
@@ -23,6 +27,7 @@ int main()
         deltaTime = clock.restart();
         scene.update(deltaTime.asSeconds());
         scene.render(window);
+
         window.display();
     }
     return EXIT_SUCCESS;

@@ -1,5 +1,6 @@
 #include "precomp.h"
 #include <algorithm>
+#include <iostream>
 #include "Plane.h"
 
 Plane* Plane::instance = nullptr;
