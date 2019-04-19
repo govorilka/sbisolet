@@ -1,12 +1,18 @@
 #include "precomp.h"
 #include <algorithm>
+#include <iostream>
 #include "Plane.h"
 
 Plane* Plane::instance = nullptr;
 
 Plane::Plane() {
     instance = this;
-    initScene();
+    if(!texture.loadFromFile("plane.png")) {
+        throw std::runtime_error("Failed to load plane.png");
+    }
+    sprite.setTexture(texture);
+    sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
+    sprite.setScale(PLANE_SIZE / texture.getSize().x, -PLANE_SIZE / texture.getSize().y);
 }
 
 void Plane::initScene() {
@@ -16,13 +22,13 @@ void Plane::initScene() {
 
 void Plane::update(float deltaTime) {
     if (Keyboard::isKeyPressed(Keyboard::Up)) {
-        velocity.y = PLANE_V_SPEED * deltaTime;
+        velocity.y = PLANE_V_SPEED;
     } else if (Keyboard::isKeyPressed(Keyboard::Down)) {
-        velocity.y = -PLANE_V_SPEED * deltaTime;
+        velocity.y = -PLANE_V_SPEED;
     } else {
         velocity.y = 0;
     }
-    Vector2f newPosition = sprite.getPosition() + velocity;
+    Vector2f newPosition = sprite.getPosition() + velocity * deltaTime;
     newPosition.y = std::max(MIN_PLANE_HEIGHT, newPosition.y);
     newPosition.y = std::min(MAX_PLANE_HEIGHT, newPosition.y);
     setPosition(newPosition);

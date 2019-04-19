@@ -11,6 +11,7 @@ int main()
     window.setVerticalSyncEnabled(true);
 
     Scene scene{window};
+    scene.initScene();
 
     Clock clock;
     Time deltaTime;

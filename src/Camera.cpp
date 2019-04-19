@@ -9,20 +9,20 @@ Camera::Camera(RenderWindow& window)
     :renderWindow(window)
 {
     instance = this;
-    initScene();
+
+    Vector2u windowSize = renderWindow.getSize();
+    float aspectRatio = (float) windowSize.x / windowSize.y;
+    Vector2f cameraPosition(-CAMERA_FOLLOW_DISTANCE, VIEW_SIZE_Y);
+    Vector2f size(VIEW_SIZE_Y * aspectRatio, -VIEW_SIZE_Y);
+    viewRect = FloatRect(cameraPosition, size);
 }
 
 void Camera::initScene() {
-    update(0);
+    followPlane();
 }
 
 void Camera::update(float deltaTime) {
-    Vector2u windowSize = renderWindow.getSize();
-    float aspectRatio = (float)windowSize.x / windowSize.y;
-    Vector2f planePosition = Plane::instance->getPosition();
-    Vector2f cameraPosition(planePosition.x - CAMERA_FOLLOW_DISTANCE, VIEW_SIZE_Y);
-    Vector2f size(VIEW_SIZE_Y * aspectRatio, -VIEW_SIZE_Y);
-    viewRect = FloatRect(cameraPosition, size);
+    followPlane();
 }
 
 void Camera::render(RenderWindow &window) {
@@ -32,4 +32,8 @@ void Camera::render(RenderWindow &window) {
 
 const FloatRect &Camera::getRect() {
     return viewRect;
+}
+
+void Camera::followPlane() {
+    viewRect.left = Plane::instance->getPosition().x - CAMERA_FOLLOW_DISTANCE;
 }

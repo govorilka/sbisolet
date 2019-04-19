@@ -10,42 +10,42 @@ UI::UI(RenderWindow &window) : rect(0, 0, window.getSize().x * 1000 / window.get
 
     game_over.setFont(font);
     game_over.setCharacterSize(90);
-    game_over.setFillColor(Color::Red);
+    game_over.setColor(Color::Red);
     game_over.setStyle(Text::Bold);
 
     score.setFont(font);
     score.setCharacterSize(50);
-    score.setFillColor(Color::Red);//set it later
+    score.setColor(Color::Red);//set it later
     score.setStyle(Text::Bold);
 
     hp.setFont(Fothers);
     hp.setCharacterSize(55);
-    hp.setFillColor(Color(255, 58, 129));
+    hp.setColor(Color(255, 58, 129));
     hp.setStyle(Text::Regular | Text::Bold);
 
     time.setFont(Fothers);
     time.setCharacterSize(55);
-    time.setFillColor(Color(255, 254, 210));
+    time.setColor(Color(255, 254, 210));
     time.setStyle(Text::Regular);
 
     cur_score.setFont(Fothers);
     cur_score.setCharacterSize(55);
-    cur_score.setFillColor(Color(255, 254, 210));
+    cur_score.setColor(Color(255, 254, 210));
     cur_score.setStyle(Text::Regular);
 
     best_score.setFont(font);
     best_score.setCharacterSize(50);
-    best_score.setFillColor(Color::Red);//set it later
+    best_score.setColor(Color::Red);//set it later
     best_score.setStyle(Text::Bold);
 
     gratz.setFont(font);
     gratz.setCharacterSize(90);
-    gratz.setFillColor(Color::Red);
+    gratz.setColor(Color::Red);
     gratz.setStyle(Text::Bold);
 
     new_record.setFont(font);
     new_record.setCharacterSize(55);
-    new_record.setFillColor(Color::Red);
+    new_record.setColor(Color::Red);
     new_record.setStyle(Text::Bold);
 }
 

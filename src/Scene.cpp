@@ -2,7 +2,7 @@
 #include "Scene.h"
 
 
-Scene* Scene::instance= nullptr;
+Scene* Scene::instance = nullptr;
 
 Scene::Scene(RenderWindow &window)
 : camera(window),
