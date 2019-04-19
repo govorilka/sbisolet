@@ -19,3 +19,8 @@ void Scene::render(sf::RenderWindow &window) {
     plane.render(window);
     ui.render(window);
 }
+
+void Scene::initScene() {
+    plane.initScene();
+    camera.initScene();
+}

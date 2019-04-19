@@ -8,8 +8,8 @@
 class Scene {
     UI ui;
     Plane plane;
-    Terrain terrain;
     Camera camera;
+    Terrain terrain;
 
 public:
 
@@ -17,4 +17,7 @@ public:
 
     void update(float deltaTime);
     void render(RenderWindow& window);
+
+private:
+    void initScene();
 };

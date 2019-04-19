@@ -9,6 +9,11 @@ Camera::Camera(RenderWindow& window)
     :renderWindow(window)
 {
     instance = this;
+    initScene();
+}
+
+void Camera::initScene() {
+    update(0);
 }
 
 void Camera::update(float deltaTime) {
