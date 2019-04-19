@@ -54,6 +54,7 @@
 #include "console.h"
 #include "settingsdialog.h"
 #include "window.h"
+#include "Command.h"
 
 #include <QLabel>
 #include <QMessageBox>
@@ -158,10 +159,59 @@ void MainWindow::writeData(const QByteArray &data)
 
 void MainWindow::readData()
 {
-    const QByteArray data = m_serial->readAll();
-    //std::cout << data.constData() << std::endl;
-    //std::cout << str.constData() << std::endl;
-    Q_UNUSED(data)
+    char x;
+    if (!stable) {
+        while (m_serial->getChar(&x)) {
+            if (x==';')
+                stable= true;
+            return;
+        }
+    }
+    while (m_serial->getChar(&x)) {
+        if (x!=';') {
+            if (x=='.') // =)
+                x= ',';
+            nextCommand+=x;
+        } else {
+            std::cout<<"READY COMMAND: "<<nextCommand <<std::endl;
+            try {
+             Command a = CommandParser::getCommand(nextCommand);
+             for (double arg : a.args)
+                 std::cout<<arg<<" ";
+             std::cout<<std::endl<<std::endl;
+            }
+            catch (...) {
+            }
+
+            nextCommand.clear();
+            return;
+        }
+    }
+
+//    m_serial->getChar(&x);
+//    if (x==';') {
+//        stable = true;
+//    }
+//    command+=x;
+
+//    std::cout<<x<<std::endl;
+//    std::cout<<"READED "<<m_serial->read(x,250)<<std::endl;
+
+/*    const QByteArray data = m_serial->read(15);
+    //m_serial->readLine(
+//    std::cout << data.constData() << std::endl
+    auto str = std::string(data.constData());
+    std::cout<<"STRING GOT "<<str<<std::endl<<std::endl;
+    try {
+    auto command = CommandParser::getCommand(str);
+    std::cout<<"TYPE "<<(int)command.type<<std::endl <<"ARGS: ";
+    for (auto& arg: command.args)
+        std::cout<<arg<<std::endl;
+    std::cout<<std::endl;
+    }
+    catch (std::exception& exc) {}
+    std::cout << str.constData() << std::endl; */
+//    Q_UNUSED(data);
 }
 
 void MainWindow::handleError(QSerialPort::SerialPortError error)

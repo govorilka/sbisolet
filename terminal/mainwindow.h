@@ -44,5 +44,7 @@ private:
     QLabel *m_status = nullptr;
     SettingsDialog *m_settings = nullptr;
     QSerialPort *m_serial = nullptr;
+    bool stable = false;
+    std::string nextCommand;
 };
 

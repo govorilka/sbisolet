@@ -12,7 +12,8 @@ SOURCES += \
     triangle.cpp \
     glwidget.cpp \
     logo.cpp \
-    window.cpp
+    window.cpp \
+    Command.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -21,7 +22,8 @@ HEADERS += \
     triangle.h \
     glwidget.h \
     logo.h \
-    window.h
+    window.h \
+    Command.h
 
 FORMS += \
     mainwindow.ui \
