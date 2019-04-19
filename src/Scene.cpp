@@ -23,8 +23,8 @@ void Scene::update(float deltaTime) {
 
 void Scene::render(sf::RenderWindow &window) {
     window.clear(Color(0, 0, 255));
-    camera.render(window);
     terrain.render(window);
+    camera.render(window);
     kamikaze.render(window);
     balloon.render(window);
     plane.render(window);
@@ -39,15 +39,15 @@ void Scene::initScene() {
     balloon.initScene();
 }
 
-bool Scene::isGameOver(){
+bool Scene::isGameOver() {
     return !plane.isAlive();
 }
 
-int Scene::get_hp(){
+int Scene::get_hp() {
     return plane.getHP();
 }
 
-float Scene::get_time(){
+float Scene::get_time() {
 
     return 321;//seconds
 }
@@ -56,7 +56,7 @@ int Scene::get_score() {
     return 323123;
 }
 
-int Scene::get_record(){
+int Scene::get_record() {
     return 0;
 }
 

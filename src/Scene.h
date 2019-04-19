@@ -4,8 +4,8 @@
 #include "UI.h"
 #include "terrain.h"
 #include "Camera.h"
-#include "Kamikaze.h"
-#include "Balloon.h"
+#include "Enemies/Kamikaze.h"
+#include "Enemies/Balloon.h"
 
 class Scene {
     UI ui;
@@ -16,14 +16,16 @@ class Scene {
     Balloon balloon;
 
 public:
-    explicit Scene(RenderWindow& window);
+    static Scene* instance;
 
+    explicit Scene(RenderWindow& window);
+    
+    void initScene();
     void update(float deltaTime);
     void render(RenderWindow& window);
 
-    void initScene();
-    static Scene* instance;
     bool isGameOver();
+
     int get_hp();
     float get_time();
     int get_score();
