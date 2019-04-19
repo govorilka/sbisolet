@@ -5,7 +5,9 @@
 
 Plane* Plane::instance = nullptr;
 
-Plane::Plane() {
+Plane::Plane()
+    :angle(0)
+    {
     instance = this;
     if(!texture.loadFromFile("plane.png")) {
         throw std::runtime_error("Failed to load plane.png");
@@ -22,12 +24,16 @@ void Plane::initScene() {
 
 void Plane::update(float deltaTime) {
     if (Keyboard::isKeyPressed(Keyboard::Up)) {
-        velocity.y = PLANE_V_SPEED;
+        angle = 45;
     } else if (Keyboard::isKeyPressed(Keyboard::Down)) {
-        velocity.y = -PLANE_V_SPEED;
+        angle = -45;
     } else {
-        velocity.y = 0;
+        angle = 0;
     }
+    if (getCurrentAngle() != 0) {
+        velocity.y = PLANE_V_SPEED * (getCurrentAngle() / 45);
+    }
+    sprite.rotate(calculateRotation());
     Vector2f newPosition = sprite.getPosition() + velocity * deltaTime;
     newPosition.y = std::max(MIN_PLANE_HEIGHT, newPosition.y);
     newPosition.y = std::min(MAX_PLANE_HEIGHT, newPosition.y);
@@ -44,4 +50,14 @@ const Vector2f& Plane::getPosition() {
 
 void Plane::setPosition(Vector2f position) {
     sprite.setPosition(position);
+}
+
+float Plane::calculateRotation() {
+    return (angle - getCurrentAngle()) / 30;
+}
+
+float Plane::getCurrentAngle() {
+    float curAngle = sprite.getRotation();
+    if (curAngle > 180) curAngle -= 360;
+    return curAngle;
 }

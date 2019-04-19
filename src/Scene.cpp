@@ -1,3 +1,4 @@
+#include <iostream>
 #include "precomp.h"
 #include "Scene.h"
 
@@ -5,16 +6,16 @@
 Scene* Scene::instance = nullptr;
 
 Scene::Scene(RenderWindow &window)
-: camera(window),
-ui(window)
+   :camera(window),
+    ui(window)
 {
-    instance=this;
+    instance = this;
 }
 
 void Scene::update(float deltaTime) {
-    camera.update(deltaTime);
-    terrain.update(deltaTime);
     plane.update(deltaTime);
+    terrain.update(deltaTime);
+    camera.update(deltaTime);
     ui.update(deltaTime);
 }
 
