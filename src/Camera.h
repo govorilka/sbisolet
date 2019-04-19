@@ -14,4 +14,7 @@ public:
     void initScene();
     void update(float deltaTime);
     void render(RenderWindow& window);
+
+private:
+    void followPlane();
 };

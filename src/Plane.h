@@ -3,6 +3,7 @@
 class Plane {
     Sprite sprite;
     Vector2f velocity;
+    Texture texture;
 public:
     static Plane* instance;
 
