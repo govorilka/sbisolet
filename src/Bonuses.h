@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <cstdlib>
+
 class Bonuses {
 public:
     enum class BonusType: int
