@@ -8,7 +8,7 @@ int main()
     RenderWindow window(VideoMode::getDesktopMode(), "SBISolet");
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
-    Scene scene{};
+    Scene scene(window);
     Clock clock;
     Time deltaTime;
     while (window.isOpen())

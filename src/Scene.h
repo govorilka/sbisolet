@@ -12,6 +12,9 @@ class Scene {
     Camera camera;
 
 public:
+
+    explicit Scene(RenderWindow& window);
+
     void update(float deltaTime);
     void render(RenderWindow& window);
 };

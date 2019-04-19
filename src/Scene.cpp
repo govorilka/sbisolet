@@ -1,6 +1,10 @@
 #include "precomp.h"
 #include "Scene.h"
 
+Scene::Scene(RenderWindow &window) : camera(window) {
+
+}
+
 void Scene::update(float deltaTime) {
     camera.update(deltaTime);
     terrain.update(deltaTime);
