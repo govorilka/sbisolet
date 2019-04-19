@@ -1,12 +1,11 @@
 #include "precomp.h"
-#include <algorithm>
-#include <iostream>
 #include "Plane.h"
 
 Plane* Plane::instance = nullptr;
 
 Plane::Plane()
-    :angle(0)
+    :angle(0),
+     hp(INIT_PLANE_HP)
     {
     instance = this;
     if(!texture.loadFromFile("plane.png")) {
@@ -20,15 +19,16 @@ Plane::Plane()
 void Plane::initScene() {
     velocity = Vector2f(PLANE_H_SPEED, 0);
     setPosition(Vector2f(0, VIEW_SIZE_Y / 2));
+    hp = INIT_PLANE_HP;
 }
 
 void Plane::update(float deltaTime) {
     if (Keyboard::isKeyPressed(Keyboard::Up)) {
-        angle = 45;
+        setAngle(45);
     } else if (Keyboard::isKeyPressed(Keyboard::Down)) {
-        angle = -45;
+        setAngle(-45);
     } else {
-        angle = 0;
+        setAngle(0);
     }
     if (getCurrentAngle() != 0) {
         velocity.y = PLANE_V_SPEED * (getCurrentAngle() / 45);
@@ -61,3 +61,25 @@ float Plane::getCurrentAngle() {
     if (curAngle > 180) curAngle -= 360;
     return curAngle;
 }
+
+bool Plane::isAlive() {
+    return hp > 0;
+}
+
+void Plane::addHP(int value) {
+    hp += value;
+    hp = std::min(hp, INIT_PLANE_HP);
+}
+
+int Plane::getHP() {
+    return hp;
+}
+
+const FloatRect Plane::getGlobalBounds() {
+    return sprite.getGlobalBounds();
+}
+
+void Plane::setAngle(float value) {
+    angle = value;
+}
+
