@@ -4,6 +4,8 @@ class Plane {
     Sprite sprite;
     Vector2f velocity;
     Texture texture;
+
+    float angle;
 public:
     static Plane* instance;
 
@@ -17,4 +19,7 @@ public:
 
 private:
     void setPosition(Vector2f position);
+
+    float getCurrentAngle();
+    float calculateRotation();
 };
