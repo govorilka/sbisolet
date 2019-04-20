@@ -103,10 +103,15 @@ void MainWindow::readData()
     {
         while (mSerial->getChar(&x))
         {
+            std::cout << x << std::endl;
             if (x == ';')
             {
                 stable = true;
+                break;
             }
+        }
+        if (!stable)
+        {
             return;
         }
     }
@@ -119,29 +124,41 @@ void MainWindow::readData()
         }
         else
         {
-//            std::cout<<"READY COMMAND: "<<nextCommand <<std::endl;
             try
             {
-             curCommand = CommandParser::getCommand(nextCommand);
-//             for (double arg : curCommand.args)
-//                 std::cout<<arg<<" ";
-//             std::cout<<std::endl<<std::endl;
+                std::cout<<nextCommand.constData()<<std::endl;
+                curCommand = CommandParser::getCommand(nextCommand);
             }
             catch (...) {
                 nextCommand.clear();
                 return;
             }
-            auto angle = curCommand.args.at(0);
-            std::cout<<"BEFORE :"<< angle<<std::endl;
-            if (angle< -30  )
-                angle = -45;
-            else if ( angle > 30 ) {
-                angle = 45;
+
+            if (curCommand.type == Command::Type::SONAR) {
+                float angle = curCommand.args.at(0);
+                std::cout<<"SONAR :"<< angle << std::endl;
+                if (angle < 10 || angle > 30) {
+                     nextCommand.clear();
+                    return;
+                }
+
+                mCanvas->setPlaneAngle((angle - 10.) * 4.5 - 45.);
             }
-            else {
-                angle = 0;
+            else
+            {
+                auto angle = curCommand.args.at(0);
+                std::cout<<"BEFORE :"<< angle<<std::endl;
+                if (angle< -30  )
+                    angle = -45;
+                else if ( angle > 30 ) {
+                    angle = 45;
+                }
+                else {
+                    angle = 0;
+                }
+                mCanvas->setPlaneAngle(angle);
             }
-            mCanvas->setPlaneAngle(angle);
+
             nextCommand.clear();
             return;
         }

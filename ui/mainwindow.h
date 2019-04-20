@@ -7,6 +7,8 @@
 #include <UI.h>
 #include "command.h"
 
+#include <QByteArray>
+
 namespace Ui {
     class MainWindow;
 }
@@ -47,5 +49,5 @@ private:
     MyCanvas* mCanvas = nullptr;
 
     bool stable = false;
-    std::string nextCommand;
+    QByteArray nextCommand;
 };

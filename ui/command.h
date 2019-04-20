@@ -2,6 +2,8 @@
 
 #include <string>
 #include <vector>
+#include <QByteArray>
+#include <QList>
 
 class Command {
 public:
@@ -11,16 +13,17 @@ public:
         BUTTON_A = 2,
         BUTTON_B = 3,
         BUTTON_C = 4,
-        BUTTON_D = 5
+        BUTTON_D = 5,
+        SONAR = 6
     };
-    Command(const std::string &name, std::vector<double> args);
+    Command(const QByteArray &name, std::vector<double> args);
     Type type;
     std::vector<double> args;
 };
 
 class CommandParser {
 public:
-    static Command getCommand(const std::string &data);
+    static Command getCommand(const QByteArray &data);
 
 private:
     static bool checkName(const std::string &name);
