@@ -140,6 +140,7 @@ float Plane::getFuel() {
 
 void Plane::addFuel(float value) {
     fuel += value;
+    fuel = std::min(fuel, MAX_FUEL);
 }
 
 void Plane::setControlMode(bool isKeyboardMode) {
