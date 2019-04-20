@@ -1,5 +1,6 @@
 #include "precomp.h"
 #include "Plane.h"
+#include "terrain.h"
 
 Plane* Plane::instance = nullptr;
 
@@ -66,6 +67,9 @@ void Plane::update(float deltaTime) {
     newPosition.y = std::max(MIN_PLANE_HEIGHT, newPosition.y);
     newPosition.y = std::min(MAX_PLANE_HEIGHT, newPosition.y);
     setPosition(newPosition);
+    /*if(Terrain::instance->isIntersects(getGlobalBoundingCircle())){
+        hp = 0;
+    }*/
 }
 
 void Plane::render(RenderWindow& window) {
@@ -138,3 +142,9 @@ void Plane::setControlMode(bool isKeyboardMode) {
     isKeyboard = isKeyboardMode;
 }
 
+Circle Plane::getGlobalBoundingCircle(){
+    Circle circle;
+    circle.center = getPosition();
+    circle.radius = PLANE_SIZE/2;
+    return circle;
+}

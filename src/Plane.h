@@ -1,6 +1,6 @@
 #pragma once
 
-#include "precomp.h"
+#include "Circle.h"
 
 class Plane {
     Sprite sprite;
@@ -32,8 +32,8 @@ public:
     void addGodModeTime(float value);
 
     const FloatRect getGlobalBounds();
-
     void setAngle(float value, bool force = false);
+    Circle getGlobalBoundingCircle();
     void setControlMode(bool isKeyboardMode);
 
     void initScene();

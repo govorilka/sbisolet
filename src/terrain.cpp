@@ -5,7 +5,10 @@
 #include "Enemies/Enemies.h"
 #include "Utils.h"
 
+Terrain* Terrain::instance = nullptr;
+
 Terrain::Terrain() {
+    instance = this;
 }
 
 void Terrain::initScene() {
@@ -74,7 +77,11 @@ void Terrain::render(sf::RenderWindow &window) {
     window.draw(vertexes);
 }
 
-/*bool isIntersects(const Circle& circle, const Segment& segment){
-
+bool Terrain::isIntersects(const Circle& circle){
+    for ( const auto& segment: seg_list){
+        if (::isIntersects(circle, segment)){
+            return true;
+        }
+    }
+    return false;
 }
-*/

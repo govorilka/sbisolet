@@ -2,9 +2,11 @@
 #include "CollisionUtils.h"
 #include "Circle.h"
 #include "Segment.h"
+#include <iostream>
 
 
 bool isIntersects(const Circle& circle, const Segment& segment){
+
     Vector2f vl = segment.second - segment.first;
     Vector2f w = circle.center - segment.first;
     float dis = cross(vl,w)/dot(segment.second, segment.first);
