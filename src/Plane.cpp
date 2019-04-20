@@ -27,10 +27,14 @@ Plane::Plane()
 
     }
 
-void Plane::initScene()
-{
+
+void Plane::initScene() {
+
     fuelSprites.clear();
 
+    lostControlTime=0;
+    angle=0;
+    sprite.setRotation(0);
     velocity = Vector2f(PLANE_H_SPEED, 0);
     setPosition(Vector2f(0, VIEW_SIZE_Y / 2));
     hp = PLANE_INIT_HP;
@@ -52,7 +56,10 @@ void Plane::update(float deltaTime) {
     updateFuelSprites(deltaTime);
     float fuel_dec = 0;
     if (isKeyboard) {
-        if (Keyboard::isKeyPressed(Keyboard::Up) && fuel > 0 && getPosition().y < PLANE_MAX_HEIGHT - 2.5) {
+        if(lostControlTime>0){
+            setAngle(getCurrentAngle()-EFFECT_ROTATION_SPEED);
+        }
+        else if (Keyboard::isKeyPressed(Keyboard::Up) && fuel > 0 && getPosition().y < PLANE_MAX_HEIGHT - 2.5) {
             fuel_dec = PLANE_FUEL_DEC_UP;
             setAngle(45);
         } else if (Keyboard::isKeyPressed(Keyboard::Down) || fuel == 0) {
@@ -76,7 +83,11 @@ void Plane::update(float deltaTime) {
         fuel_dec *= PLANE_FUEL_CONSUMPTION_TWO_HP_MUL;
     }
 
-    if (getCurrentAngle() != 0) {
+    if(lostControlTime>0){
+        velocity.y = -PLANE_V_SPEED;
+    }
+    else if (getCurrentAngle() != 0) {
+
         velocity.y = PLANE_V_SPEED * (getCurrentAngle() / 45);
     }
 

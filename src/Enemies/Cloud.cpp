@@ -49,7 +49,9 @@ bool Cloud::isReadyToShoot(){
 void Cloud::update(float deltaTime) {
 
     if (cloud.getGlobalBounds().intersects(Plane::instance->getGlobalBounds()) && Plane::instance->lostControlTime<=0) {
-        Plane::instance->lostControlTime = PLANE_LOST_CONTROL_DURATION;
+
+        Plane::instance->lostControlTime = EFFECT_LOST_CONTROL_DURATION;
+
     }
 
     if(isReadyToShoot()){
