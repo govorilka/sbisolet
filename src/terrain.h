@@ -1,6 +1,7 @@
 #pragma once
 #include <list>
 #include "Segment.h"
+#include "Circle.h"
 
 class Terrain{
 private:
@@ -14,7 +15,7 @@ public:
     void render(RenderWindow& window);
     void new_vertex_array();
     void add_new_segment();
-
+    bool isIntersects(const Circle& circle, const Segment& segment);
 
     Terrain();
 };

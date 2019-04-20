@@ -33,8 +33,15 @@ static const float TERRAIN_SEGMENT_MIN_HEIGHT = 0.2;
 
 #define TERRAIN_COLOR Color::Green
 
+
 //BONUS
 static const float BONUS_SIZE = 15;
+static const float BONUS_BIRD_SIZE = 17;
+static const float BONUS_LIFE_SIZE = 10;
+static const float BONUS_ROCKET_SIZE = 10;
+static const float BONUS_CLOUD_SIZE = 15;
+static const float BONUS_FUEL_SIZE = 10;
+
 
 //UI
 static const float UI_BAR_HEIGHT=7;//low=high))))

@@ -27,7 +27,7 @@ int main()
             }
             if (event.type == Event::KeyPressed){
                 if(event.key.code == Keyboard::B){
-                    Bonuses::instance->createBonus();
+                    //Bonuses::instance->createBonus();
                 }
 
                 if(event.key.code == Keyboard::S) {

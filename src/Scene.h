@@ -16,8 +16,6 @@ class Scene {
     Camera camera;
     Terrain terrain;
 
-
-
     Enemies enemies;
     Bonuses bonuses;
 

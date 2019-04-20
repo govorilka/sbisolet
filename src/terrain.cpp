@@ -74,4 +74,7 @@ void Terrain::render(sf::RenderWindow &window) {
     window.draw(vertexes);
 }
 
+/*bool isIntersects(const Circle& circle, const Segment& segment){
 
+}
+*/

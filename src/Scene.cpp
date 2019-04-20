@@ -64,6 +64,7 @@ void Scene::render(sf::RenderWindow &window) {
 
 void Scene::onTerrainSegmentCreated(const Segment &segment) {
     enemies.onTerrainSegmentCreated(segment);
+    bonuses.onTerrainSegmentCreated(segment);
 }
 
 void Scene::initScene() {

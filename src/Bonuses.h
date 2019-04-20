@@ -1,6 +1,9 @@
 #pragma once
+
+
 #include <list>
 #include <cstdlib>
+class Segment;
 
 class Bonuses {
 public:
@@ -8,13 +11,17 @@ public:
     {
         LIFE,
         FUEL,
-        BIRD
+        CLOUD,
+        BIRD,
+        ROCKET
     };
 
     class Bonus{
     public:
         BonusType   type;
         Sprite      sprite;
+
+        bool isAlive;
     };
 
     
@@ -25,12 +32,14 @@ public:
     Bonuses();
     static Bonuses* instance;
     void initScene();
+    void onTerrainSegmentCreated(const Segment &segment);
     void update(float deltaTime);
     void render(RenderWindow& window);
-    void createBonus();
+    void createBonus(const Segment &segment);
     BonusType getRandomBonusType();
     Sprite getBonusSprite(BonusType type);
 
+    bool isToBeRemoved();
  private:
     void setPosition(Vector2f position);   
 };
