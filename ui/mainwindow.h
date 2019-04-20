@@ -2,6 +2,9 @@
 
 #include <QMainWindow>
 
+#include <Scene.h>
+#include <UI.h>
+
 namespace Ui {
     class MainWindow;
 }
@@ -19,4 +22,6 @@ public:
 private:
     Ui::MainWindow* ui = nullptr;
     MyCanvas* mCanvas = nullptr;
+
+
 };

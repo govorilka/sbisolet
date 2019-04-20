@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QFrame>
 
+#include "precomp.h"
 #include "mycanvas.h"
 #include "mainwindow.h"
 

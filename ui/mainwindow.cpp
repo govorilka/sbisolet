@@ -1,3 +1,5 @@
+#include "precomp.h"
+
 #include "mainwindow.h"
 #include "mycanvas.h"
 

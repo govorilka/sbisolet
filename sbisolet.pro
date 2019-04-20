@@ -16,7 +16,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-CONFIG += c++11
+CONFIG += c++14
+
+INCLUDEPATH += src
 
 SOURCES += \
         ui/main.cpp \
@@ -24,10 +26,37 @@ SOURCES += \
         ui/mycanvas.cpp \
         ui/qtsfmlcanvas.cpp
 
+SOURCES += \
+        src/UI.cpp \
+        src/terrain.cpp \
+        src/Scene.cpp \
+        src/Plane.cpp \
+        src/Camera.cpp \
+        src/Bonuses.cpp
+
+SOURCES += \
+        src\Enemies\Balloon.cpp \
+        src\Enemies\Kamikaze.cpp
+
+
 HEADERS += \
         ui/mainwindow.h \
         ui/mycanvas.h \
         ui/qtsfmlcanvas.h
+
+HEADERS += \
+        src/terrain.h \
+        src/precomp.h \
+        src/Scene.h \
+        src/Plane.h \
+        src/Config.h \
+        src/Camera.h \
+        src/Bonuses.h \
+        src/UI.h
+
+SOURCES += \
+        src\Enemies\Balloon.h \
+        src\Enemies\Kamikaze.h
 
 FORMS += \
         ui/mainwindow.ui

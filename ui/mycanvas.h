@@ -4,6 +4,10 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <memory>
+
+class Scene;
+
 class MyCanvas : public QtSFMLCanvas
 {
 public :
@@ -14,7 +18,6 @@ protected: // QtSFMLCanvas
     void OnUpdate();
 
 private:
-    sf::Clock myClock;
-    sf::Texture myImage;
-    sf::Sprite mySprite;
+    sf::Clock mClock;
+    std::unique_ptr<Scene> mScene;
 };

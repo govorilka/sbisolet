@@ -1,5 +1,7 @@
 #pragma once
 
+#include "precomp.h"
+
 class Plane {
     Sprite sprite;
     Vector2f velocity;
