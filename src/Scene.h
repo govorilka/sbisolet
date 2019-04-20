@@ -48,4 +48,7 @@ public:
     float get_time();
     int get_record();
     void set_record(int value);
+    bool isRocket();
+    float get_gas();
+    int getFuel();
 };

@@ -49,13 +49,16 @@ void Scene::initScene() {
     lastBirdAddTime = FLT_MAX;
 }
 
+
 bool Scene::isGameOver() {
     return !plane.isAlive();
 }
 
+
 int Scene::get_hp() {
     return plane.getHP();
 }
+
 
 float Scene::get_time() {
     return time.getElapsedTime().asSeconds();//seconds
@@ -65,9 +68,11 @@ int Scene::get_score() {
     return birds;
 }
 
+
 int Scene::get_record() {
     return record;
 }
+
 
 void Scene::set_record(int value) {
     std::max(record, value);
@@ -77,6 +82,7 @@ void Scene::addBirds(int value) {
     birds += value;
     lastBirdAddTime = get_time();
 }
+
 
 int Scene::getFinalScore() {
     return birds * 100 + (int)get_time() * 10;
@@ -88,5 +94,20 @@ float Scene::getlastBirdTime() {
 
 int Scene::getBirds() {
     return birds;
+}
+
+bool Scene::isRocket(){
+    return true;
+}
+
+float Scene::get_gas(){
+    static float any=0;
+    any+=0.01;
+    if(any>1)any--;
+    return any;//return value from 0 to 1
+}
+
+int Scene::getFuel() {
+    return 5;
 }
 
