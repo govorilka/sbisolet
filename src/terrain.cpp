@@ -9,6 +9,8 @@ Terrain::Terrain() {
 
 void Terrain::initScene(){
     srand(time(0));
+    vertexes.clear();
+    seg_list.clear();
     vertexes.setPrimitiveType(Quads);
     FloatRect rect = Camera::instance->getRect();
     x_size =  rect.width*SEGMENT_WIDTH;

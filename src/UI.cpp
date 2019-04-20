@@ -80,7 +80,7 @@ UI::UI(RenderWindow &window) : rect(0, 0, window.getSize().x * 1000 / window.get
 void UI::update(float deltaTime) {
     Scene* scene=Scene::instance;
 
-    score.setString("Your score: " + std::to_string(scene->get_score()));
+    score.setString("Your score: " + std::to_string(scene->getFinalScore()));
     game_over.setString("GAME OVER");
     hp.setString("HP: " + std::to_string(scene->get_hp()));
     count_birds.setString("x "+std::to_string(scene->getBirds()));
@@ -89,7 +89,7 @@ void UI::update(float deltaTime) {
     char str[32];
     sprintf(str,"%.1f",scene->get_time());
     time.setString(std::string("Time: ") +str);
-    cur_score.setString("Score: " + std::to_string(scene->get_score()));
+    cur_score.setString("Score: " + std::to_string(scene->getFinalScore()));
     best_score.setString("Best result: " + std::to_string(scene->get_record()));
 
     //gas
@@ -147,12 +147,12 @@ void UI::render(sf::RenderWindow &window) {
     Scene* scene=Scene::instance;
 
     if (Scene::instance->isGameOver() || Keyboard::isKeyPressed(Keyboard::D)) {
-        if(scene->get_score()<scene->get_record()) {
+        if(scene->getFinalScore() < scene->get_record()) {
             window.draw(game_over);
             window.draw(score);
             window.draw(best_score);
         } else {
-            scene->set_record(scene->get_score());
+            scene->set_record(scene->getFinalScore());
             new_record.setString("New world record: " + std::to_string(scene->get_record()));
             window.draw(new_record);
             window.draw(game_over);

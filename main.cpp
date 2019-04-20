@@ -29,7 +29,10 @@ int main()
                 if(event.key.code == Keyboard::B){
                     Bonuses::instance->createBonus();
                 }
-            }   
+                if(event.key.code == Keyboard::S) {
+                    scene.start();
+                }
+            }
         }
         deltaTime = clock.restart();
         scene.update(deltaTime.asSeconds());

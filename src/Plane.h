@@ -31,6 +31,8 @@ public:
 
     const FloatRect getGlobalBounds();
 
+    void setAngle(float value);
+
     void initScene();
     void update(float deltaTime);
     void render(RenderWindow& window);
@@ -40,6 +42,4 @@ private:
 
     float getCurrentAngle();
     float calculateRotation();
-
-    void setAngle(float value);
 };

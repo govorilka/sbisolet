@@ -10,28 +10,49 @@ Scene::Scene(RenderWindow &window)
    :camera(window),
     ui(window),
     birds(0),
-    record(0)
+    record(0),
+    isStarted(false),
+    finalTime(0)
 {
     instance = this;
 }
 
 void Scene::update(float deltaTime) {
-    plane.update(deltaTime);
-    camera.update(deltaTime);
-    terrain.update(deltaTime);
-    enemies.update(deltaTime);
-    bonuses.update(deltaTime);
-    ui.update(deltaTime);
+    if (isStarted) {
+        plane.update(deltaTime);
+        camera.update(deltaTime);
+        terrain.update(deltaTime);
+        enemies.update(deltaTime);
+        bonuses.update(deltaTime);
+        ui.update(deltaTime);
+        finalTime = get_time();
+    } else {
+        plane.update(deltaTime);
+        camera.update(deltaTime);
+        terrain.update(deltaTime);
+        ui.update(deltaTime);
+    }
+    if (isGameOver()) {
+        isStarted = false;
+    }
 }
 
 void Scene::render(sf::RenderWindow &window) {
     window.clear(Color(0, 0, 255));
-    camera.render(window);
-    enemies.render(window);
-    terrain.render(window);
-    bonuses.render(window);
-    plane.render(window);
-    ui.render(window);
+    if (isStarted) {
+        camera.render(window);
+        enemies.render(window);
+        terrain.render(window);
+        bonuses.render(window);
+        plane.render(window);
+        ui.render(window);
+    } else {
+        camera.render(window);
+        terrain.render(window);
+        if (isGameOver()) {
+            ui.render(window);
+        }
+    }
 }
 
 void Scene::onTerrainSegmentCreated(const Segment &segment) {
@@ -75,7 +96,7 @@ int Scene::get_record() {
 
 
 void Scene::set_record(int value) {
-    std::max(record, value);
+    record = std::max(record, value);
 }
 
 void Scene::addBirds(int value) {
@@ -85,7 +106,7 @@ void Scene::addBirds(int value) {
 
 
 int Scene::getFinalScore() {
-    return birds * BIRD_COST + (int)get_time() * SECOND_COST;
+    return birds * BIRD_COST + (int)(finalTime * SECOND_COST);
 }
 
 float Scene::getlastBirdTime() {
@@ -101,10 +122,21 @@ bool Scene::isRocket(){
 }
 
 float Scene::get_gas(){
-    return plane.getFuel() / MAX_FUEL;;//return value from 0 to 1
+    return plane.getFuel() / MAX_FUEL;
 }
 
 int Scene::getFuel() {
     return 5;
+}
+
+void Scene::start() {
+    isStarted = true;
+    initScene();
+}
+
+void Scene::setPlaneAngle(float angle) {
+    angle = std::min(angle, 45.f);
+    angle = std::max(angle, -45.f);
+    plane.setAngle(angle);
 }
 

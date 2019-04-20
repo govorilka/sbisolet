@@ -22,6 +22,7 @@ void Plane::initScene() {
     velocity = Vector2f(PLANE_H_SPEED, 0);
     setPosition(Vector2f(0, VIEW_SIZE_Y / 2));
     hp = INIT_PLANE_HP;
+    fuel = MAX_FUEL;
 }
 
 void Plane::update(float deltaTime) {

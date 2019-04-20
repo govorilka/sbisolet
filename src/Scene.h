@@ -23,7 +23,9 @@ class Scene {
     int record;
 
     Clock time;
+    float finalTime;
     float lastBirdAddTime;
+    bool isStarted;
 
 public:
     static Scene* instance;
@@ -36,6 +38,10 @@ public:
     void onTerrainSegmentCreated(const Segment& segment);
 
     bool isGameOver();
+
+    void start();
+
+    void setPlaneAngle(float angle);
 
     float getlastBirdTime();
     void addBirds(int value);
