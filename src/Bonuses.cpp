@@ -7,8 +7,8 @@
 
 Bonuses::Bonuses() {
     instance = this;
-    if(!texture.loadFromFile("fuelBirdArmor.png")) {
-        throw std::runtime_error("Failed to load fuelBirdArmor.png");
+    if(!texture.loadFromFile("effects.png")) {
+        throw std::runtime_error("Failed to load effects.png");
     }
 
 }

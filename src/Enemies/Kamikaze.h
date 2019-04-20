@@ -11,7 +11,7 @@ class Kamikaze : public GameObject {
     bool isAlive;
 
 public:
-    Kamikaze();
+    Kamikaze(float xPos, float yPos);
 
     void initScene();
     void update(float deltaTime);

@@ -11,7 +11,7 @@ class Balloon : public GameObject {
     bool isAlive;
 
 public:
-    Balloon();
+    Balloon(float xPos, float yPos);
 
     void initScene();
     void update(float deltaTime);

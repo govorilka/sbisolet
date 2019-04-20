@@ -14,13 +14,8 @@ int main()
     Scene scene{window};
     scene.initScene();
 
-    scene.initScene();
     Clock clock;
     Time deltaTime;
-
-
-
-
 
     while (window.isOpen())
     {

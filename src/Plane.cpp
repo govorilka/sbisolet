@@ -5,7 +5,9 @@ Plane* Plane::instance = nullptr;
 
 Plane::Plane()
     :angle(0),
-     hp(INIT_PLANE_HP)
+     hp(INIT_PLANE_HP),
+     fuel(MAX_FUEL),
+     godModeTimeLeft(0)
     {
     instance = this;
     if(!texture.loadFromFile("plane.png")) {
@@ -23,15 +25,28 @@ void Plane::initScene() {
 }
 
 void Plane::update(float deltaTime) {
-    if (Keyboard::isKeyPressed(Keyboard::Up)) {
+    godModeTimeLeft -= deltaTime;
+    float fuel_dec = 0;
+    if (Keyboard::isKeyPressed(Keyboard::Up) && fuel > 0 && getPosition().y < MAX_PLANE_HEIGHT - 2.5) {
+        fuel_dec = FUEL_DEC_UP;
         setAngle(45);
-    } else if (Keyboard::isKeyPressed(Keyboard::Down)) {
+    } else if (Keyboard::isKeyPressed(Keyboard::Down) || fuel == 0) {
         setAngle(-45);
-    } else {
+    } else if (fuel > 0) {
+        fuel_dec = FUEL_DEC;
         setAngle(0);
+    }
+    if (hp == 1) {
+        fuel_dec *= ONE_HP_MUL;
     }
     if (getCurrentAngle() != 0) {
         velocity.y = PLANE_V_SPEED * (getCurrentAngle() / 45);
+    }
+    if (fuel > 0) {
+        fuel -= fuel_dec * deltaTime;
+        if (fuel < 0) {
+            fuel = 0;
+        }
     }
     sprite.rotate(calculateRotation());
     Vector2f newPosition = sprite.getPosition() + velocity * deltaTime;
@@ -67,6 +82,7 @@ bool Plane::isAlive() {
 }
 
 void Plane::addHP(int value) {
+    if (godModeTimeLeft > 0 && value < 0) return;
     hp += value;
     hp = std::min(hp, INIT_PLANE_HP);
 }
@@ -81,5 +97,17 @@ const FloatRect Plane::getGlobalBounds() {
 
 void Plane::setAngle(float value) {
     angle = value;
+}
+
+void Plane::addGodModeTime(float seconds) {
+    godModeTimeLeft += seconds;
+}
+
+float Plane::getFuel() {
+    return fuel;
+}
+
+void Plane::addFuel(float value) {
+    fuel += value;
 }
 

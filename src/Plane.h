@@ -9,6 +9,10 @@ class Plane {
 
     int hp;
     float angle;
+
+    float fuel;
+    float godModeTimeLeft;
+
 public:
     static Plane* instance;
 
@@ -19,6 +23,11 @@ public:
     bool isAlive();
     void addHP(int value);
     int getHP();
+
+    float getFuel();
+    void addFuel(float seconds);
+
+    void addGodModeTime(float value);
 
     const FloatRect getGlobalBounds();
 

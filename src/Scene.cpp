@@ -35,7 +35,7 @@ void Scene::render(sf::RenderWindow &window) {
 }
 
 void Scene::onTerrainSegmentCreated(const Segment &segment) {
-
+    enemies.onTerrainSegmentCreated(segment);
 }
 
 void Scene::initScene() {
@@ -85,7 +85,7 @@ void Scene::addBirds(int value) {
 
 
 int Scene::getFinalScore() {
-    return birds * 100 + (int)get_time() * 10;
+    return birds * BIRD_COST + (int)get_time() * SECOND_COST;
 }
 
 float Scene::getlastBirdTime() {
@@ -101,10 +101,7 @@ bool Scene::isRocket(){
 }
 
 float Scene::get_gas(){
-    static float any=0;
-    any+=0.01;
-    if(any>1)any--;
-    return any;//return value from 0 to 1
+    return plane.getFuel() / MAX_FUEL;;//return value from 0 to 1
 }
 
 int Scene::getFuel() {

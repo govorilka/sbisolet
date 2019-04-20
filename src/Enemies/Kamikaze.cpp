@@ -2,7 +2,7 @@
 #include "Kamikaze.h"
 #include "Plane.h"
 
-Kamikaze::Kamikaze() {
+Kamikaze::Kamikaze(float xPos, float yPos) : isAlive(true) {
     if (!texture.loadFromFile("kamikazePlaceholder.png")) {
         throw std::runtime_error("Failed to load kamikazePlaceholder");
     }
@@ -10,10 +10,10 @@ Kamikaze::Kamikaze() {
     sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
     sprite.setScale(KAMIKAZE_SIZE / texture.getSize().x, -KAMIKAZE_SIZE / texture.getSize().y);
     velocity = Vector2f(-KAMIKAZE_H_SPEED, 0);
+    sprite.setPosition(xPos, yPos);
 }
 
 void Kamikaze::initScene() {
-    sprite.setPosition(200, 50);
     isAlive = true;
 }
 
@@ -30,6 +30,9 @@ void Kamikaze::update(float deltaTime) {
     sprite.setPosition(sprite.getPosition() + velocity * deltaTime);
     if (sprite.getGlobalBounds().intersects(Plane::instance->getGlobalBounds())) {
         Plane::instance->addHP(-KAMIKAZE_DAMAGE);
+        isAlive = false;
+    }
+    if (sprite.getPosition().x < -10) {
         isAlive = false;
     }
 }
