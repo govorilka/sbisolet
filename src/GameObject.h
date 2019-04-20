@@ -1,5 +1,7 @@
 #pragma once
 
+#include "precomp.h"
+
 class GameObject {
 public:
     virtual ~GameObject() = default;

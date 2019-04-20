@@ -20,25 +20,6 @@ CONFIG += c++14
 
 INCLUDEPATH += src
 
-SOURCES += \
-        ui/main.cpp \
-        ui/mainwindow.cpp \
-        ui/mycanvas.cpp \
-        ui/qtsfmlcanvas.cpp
-
-SOURCES += \
-        src/UI.cpp \
-        src/terrain.cpp \
-        src/Scene.cpp \
-        src/Plane.cpp \
-        src/Camera.cpp \
-        src/Bonuses.cpp
-
-SOURCES += \
-        src\Enemies\Balloon.cpp \
-        src\Enemies\Kamikaze.cpp
-
-
 HEADERS += \
         ui/mainwindow.h \
         ui/mycanvas.h \
@@ -52,11 +33,33 @@ HEADERS += \
         src/Config.h \
         src/Camera.h \
         src/Bonuses.h \
-        src/UI.h
+        src/UI.h \
+        src/GameObject.h
+
+HEADERS += \
+        src\Enemies\Balloon.h \
+        src\Enemies\Enemies.h \
+        src\Enemies\Kamikaze.h
 
 SOURCES += \
-        src\Enemies\Balloon.h \
-        src\Enemies\Kamikaze.h
+        ui/main.cpp \
+        ui/mainwindow.cpp \
+        ui/mycanvas.cpp \
+        ui/qtsfmlcanvas.cpp
+
+SOURCES += \
+        src/UI.cpp \
+        src/terrain.cpp \
+        src/Scene.cpp \
+        src/Plane.cpp \
+        src/Camera.cpp \
+        src/Bonuses.cpp \
+        src/GameObject.cpp
+
+SOURCES += \
+        src\Enemies\Balloon.cpp \
+        src\Enemies\Enemies.cpp \
+        src\Enemies\Kamikaze.cpp
 
 FORMS += \
         ui/mainwindow.ui
