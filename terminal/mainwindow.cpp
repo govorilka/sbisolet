@@ -161,6 +161,7 @@ void MainWindow::readData()
 {
     char x;
     if (!stable) {
+        std::cout<<x<<std::endl;
         while (m_serial->getChar(&x)) {
             if (x==';')
                 stable= true;
@@ -169,8 +170,10 @@ void MainWindow::readData()
     }
     while (m_serial->getChar(&x)) {
         if (x!=';') {
+#ifdef linux
             if (x=='.') // =)
                 x= ',';
+#endif
             nextCommand+=x;
         } else {
             std::cout<<"READY COMMAND: "<<nextCommand <<std::endl;
