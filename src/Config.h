@@ -10,20 +10,26 @@ static const float PLANE_V_SPEED = 20;
 
 static const int PLANE_INIT_HP = 3;
 
-
 static const float PLANE_MAX_HEIGHT = 75;
 static const float PLANE_MIN_HEIGHT = 0;
 
-
 static const float PLANE_SIZE = 10;
 
-static const float MAX_FUEL = 100;
+static const float PLANE_LOST_CONTROL_DURATION = 3;
 
-static const float ONE_HP_MUL = 2;
-static const float FUEL_DEC_UP = 5;
-static const float FUEL_DEC = 2;
+static const float PLANE_FUEL_CONSUMPTION_TWO_HP_MUL = 1.5;
+static const float PLANE_FUEL_CONSUMPTION_ONE_HP_MUL = 2;
 
-static const float LOST_CONTROL_DURATION=3;
+static const float PLANE_MAX_FUEL = 100;
+
+static const float PLANE_FUEL_DEC_UP = 5;
+static const float PLANE_FUEL_DEC = 2;
+
+static const float PLANE_FUEL_SIZE = 2;
+static const float PLANE_FUEL_H_SPEED = 20;
+static const float PLANE_FUEL_V_SPEED = 25;
+
+static const float PLANE_FUEL_COOLDOWN = 0.2;
 
 
 //Terrain

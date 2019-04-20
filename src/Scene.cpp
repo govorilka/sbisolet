@@ -138,7 +138,7 @@ bool Scene::isRocket(){
 }
 
 float Scene::get_gas(){
-    return plane.getFuel() / MAX_FUEL;
+    return plane.getFuel() / PLANE_MAX_FUEL;
 }
 
 int Scene::getRocketKits() {

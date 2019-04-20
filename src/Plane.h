@@ -1,11 +1,17 @@
 #pragma once
 
+#include <list>
 #include "Circle.h"
 
 class Plane {
     Sprite sprite;
     Vector2f velocity;
     Texture texture;
+
+    Texture fuelTexture;
+    std::list<Sprite> fuelSprites;
+
+    float fuelCooldown;
 
     int hp;
     float angle;
@@ -49,4 +55,8 @@ private:
 
     float getCurrentAngle();
     float calculateRotation();
+
+    void updateFuelSprites(float deltaTime);
+
+    Circle getBCircleFromSprite(Sprite sprite);
 };

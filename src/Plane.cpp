@@ -3,9 +3,7 @@
 #include "Sounds.h"
 
 #include "terrain.h"
-#include "Scene.h"
-
-
+#include "Camera.h"
 #include "Scene.h"
 
 Plane* Plane::instance = nullptr;
@@ -13,11 +11,12 @@ Plane* Plane::instance = nullptr;
 Plane::Plane()
     :angle(0),
      hp(PLANE_INIT_HP),
-     fuel(MAX_FUEL),
+     fuel(PLANE_MAX_FUEL),
      godModeTimeLeft(0),
      lostControlTime(0),
-     isKeyboard(true)
-    {
+     isKeyboard(true),
+     fuelCooldown(0)
+     {
     instance = this;
     if(!texture.loadFromFile("plane.png")) {
         throw std::runtime_error("Failed to load plane.png");
@@ -25,63 +24,75 @@ Plane::Plane()
     sprite.setTexture(texture);
     sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
     sprite.setScale(PLANE_SIZE / texture.getSize().x, -PLANE_SIZE / texture.getSize().y);
-}
+
+    }
 
 void Plane::initScene() {
+    fuelSprites.clear();
     velocity = Vector2f(PLANE_H_SPEED, 0);
     setPosition(Vector2f(0, VIEW_SIZE_Y / 2));
     hp = PLANE_INIT_HP;
-    fuel = MAX_FUEL;
+    fuel = PLANE_MAX_FUEL;
     Scene::instance->del_Rocket();
 }
 
 void Plane::update(float deltaTime) {
     if (godModeTimeLeft > 0) godModeTimeLeft -= deltaTime;
     if (lostControlTime > 0) lostControlTime -= deltaTime;
+    updateFuelSprites(deltaTime);
     float fuel_dec = 0;
     if (isKeyboard) {
         if (Keyboard::isKeyPressed(Keyboard::Up) && fuel > 0 && getPosition().y < PLANE_MAX_HEIGHT - 2.5) {
-            fuel_dec = FUEL_DEC_UP;
+            fuel_dec = PLANE_FUEL_DEC_UP;
             setAngle(45);
         } else if (Keyboard::isKeyPressed(Keyboard::Down) || fuel == 0) {
             setAngle(-45);
         } else if (fuel > 0) {
-            fuel_dec = FUEL_DEC;
+            fuel_dec = PLANE_FUEL_DEC;
             setAngle(0);
         }
     } else {
         if (angle > 0) {
-            fuel_dec = FUEL_DEC_UP;
+            fuel_dec = PLANE_FUEL_DEC_UP;
         } else if (std::abs(angle) < ANGLE_DELTA) {
-            fuel_dec = FUEL_DEC;
+            fuel_dec = PLANE_FUEL_DEC;
             angle = 0;
         }
     }
+
     if (hp == 1) {
-        fuel_dec *= ONE_HP_MUL;
+        fuel_dec *= PLANE_FUEL_CONSUMPTION_ONE_HP_MUL;
+    } else if (hp == 2) {
+        fuel_dec *= PLANE_FUEL_CONSUMPTION_TWO_HP_MUL;
     }
+
     if (getCurrentAngle() != 0) {
         velocity.y = PLANE_V_SPEED * (getCurrentAngle() / 45);
     }
+
     if (fuel > 0) {
         fuel -= fuel_dec * deltaTime;
         if (fuel < 0) {
             fuel = 0;
         }
     }
+
     if (Terrain::instance->isIntersects(getGlobalBoundingCircle())) {
         hp = 0;
     }
+
     sprite.rotate(calculateRotation());
     Vector2f newPosition = sprite.getPosition() + velocity * deltaTime;
     newPosition.y = std::max(PLANE_MIN_HEIGHT, newPosition.y);
     newPosition.y = std::min(PLANE_MAX_HEIGHT, newPosition.y);
     setPosition(newPosition);
-
 }
 
 void Plane::render(RenderWindow& window) {
     window.draw(sprite);
+    for(const auto& fuelSprite: fuelSprites) {
+        window.draw(fuelSprite);
+    }
 
 }
 
@@ -149,7 +160,7 @@ float Plane::getFuel() {
 
 void Plane::addFuel(float value) {
     fuel += value;
-    fuel = std::min(fuel, MAX_FUEL);
+    fuel = std::min(fuel, PLANE_MAX_FUEL);
 }
 
 void Plane::setControlMode(bool isKeyboardMode) {
@@ -160,5 +171,37 @@ Circle Plane::getGlobalBoundingCircle(){
     Circle circle;
     circle.center = getPosition();
     circle.radius = PLANE_SIZE/2;
+    return circle;
+}
+
+void Plane::updateFuelSprites(float deltaTime) {
+    if (hp < 3) fuelCooldown -= deltaTime;
+    if (hp < 3 && fuelCooldown < 0) {
+        Sprite fuelSprite;
+        Texture& effects = Scene::instance->getEffectsTexture();
+        fuelSprite.setTexture(effects);
+        fuelSprite.setTextureRect(IntRect(256*1,256*2,256,256));
+
+        fuelSprite.setOrigin(128, 128);
+        fuelSprite.setScale(PLANE_FUEL_SIZE / 256, -PLANE_FUEL_SIZE / 256);
+        fuelSprite.setPosition(sprite.getPosition().x - 0.5,
+                sprite.getPosition().y);
+        fuelSprites.push_back(std::move(fuelSprite));
+        if (hp == 1) fuelCooldown = PLANE_FUEL_COOLDOWN;
+        if (hp == 2) fuelCooldown = PLANE_FUEL_COOLDOWN * 2;
+    }
+    for(auto it = fuelSprites.begin(); it != fuelSprites.end(); it++) {
+        it->setPosition(it->getPosition() - Vector2f(-deltaTime * PLANE_FUEL_H_SPEED, deltaTime * PLANE_FUEL_V_SPEED));
+        if (it->getPosition().x < Camera::instance->getRect().left - 2 * PLANE_FUEL_SIZE ||
+            Terrain::instance->isIntersects(getBCircleFromSprite(*it))) {
+            it = fuelSprites.erase(it);
+        }
+    }
+}
+
+Circle Plane::getBCircleFromSprite(Sprite sprite) {
+    Circle circle;
+    circle.center = sprite.getPosition();
+    circle.radius = PLANE_FUEL_SIZE/2;
     return circle;
 }
