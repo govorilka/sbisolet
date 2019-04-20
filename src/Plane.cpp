@@ -27,17 +27,27 @@ Plane::Plane()
 
     }
 
-void Plane::initScene() {
+void Plane::initScene()
+{
     fuelSprites.clear();
+
     velocity = Vector2f(PLANE_H_SPEED, 0);
     setPosition(Vector2f(0, VIEW_SIZE_Y / 2));
     hp = PLANE_INIT_HP;
     fuel = PLANE_MAX_FUEL;
     Scene::instance->del_Rocket();
+    godMode.setTexture(Scene::instance->getEffectsTexture());
+    godMode.setTextureRect(sf::IntRect(256, 768, 256, 256));
+    godMode.setOrigin(128,128);
+    godMode.setColor(sf::Color(255, 255, 255, 100));
+    godMode.setScale(GODMODE_SIZE / 256, -GODMODE_SIZE / 256);
 }
 
 void Plane::update(float deltaTime) {
-    if (godModeTimeLeft > 0) godModeTimeLeft -= deltaTime;
+
+    if (godModeTimeLeft > 0){
+        godModeTimeLeft -= deltaTime;
+    }
     if (lostControlTime > 0) lostControlTime -= deltaTime;
     updateFuelSprites(deltaTime);
     float fuel_dec = 0;
@@ -86,12 +96,17 @@ void Plane::update(float deltaTime) {
     newPosition.y = std::max(PLANE_MIN_HEIGHT, newPosition.y);
     newPosition.y = std::min(PLANE_MAX_HEIGHT, newPosition.y);
     setPosition(newPosition);
+    godMode.setPosition(Plane::getPosition());
 }
 
 void Plane::render(RenderWindow& window) {
     window.draw(sprite);
     for(const auto& fuelSprite: fuelSprites) {
         window.draw(fuelSprite);
+    }
+
+    if(godModeTimeLeft > 0){
+        window.draw(godMode);
     }
 
 }

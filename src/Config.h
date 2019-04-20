@@ -53,7 +53,9 @@ static const float BONUS_FUEL_SIZE = 10;
 static const int BONUS_HEALING = 1;
 static const int BONUS_TAKE_BIRD = 1;
 static const int BONUS_FUEL_ADD = 100;
-static const int BONUS_GODMODETIME = 5;
+static const int BONUS_GODMODETIME = 50;
+
+static const float GODMODE_SIZE = 20;
 
 
 //UI

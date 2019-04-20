@@ -43,6 +43,9 @@ int main()
                 if(event.key.code==Keyboard::F){
                     Sounds::instance->play_big_boom();
                 }
+                if(event.key.code==Keyboard::I){
+                    Plane::instance->addGodModeTime(1);
+                }
 
             }   
 

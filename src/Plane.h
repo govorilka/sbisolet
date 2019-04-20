@@ -3,9 +3,13 @@
 #include <list>
 #include "Circle.h"
 
+
 class Plane {
     Sprite sprite;
+    Sprite godMode;
+
     Vector2f velocity;
+
     Texture texture;
 
     Texture fuelTexture;
@@ -20,6 +24,7 @@ class Plane {
     float godModeTimeLeft;
 
     bool isKeyboard;
+
 
 public:
     static Plane* instance;
