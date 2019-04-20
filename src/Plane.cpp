@@ -109,8 +109,9 @@ const FloatRect Plane::getGlobalBounds() {
     return sprite.getGlobalBounds();
 }
 
-void Plane::setAngle(float value) {
-    if (!isKeyboard) {
+void Plane::setAngle(float value, bool force) {
+
+    if (!isKeyboard && !force) {
         if (fuel > 0 && getPosition().y > MAX_PLANE_HEIGHT - 2.5 && value > 0) {
             value = 0;
         }

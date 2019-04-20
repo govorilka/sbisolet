@@ -150,12 +150,11 @@ void Scene::start() {
     initScene();
 }
 
-void Scene::setPlaneAngle(float angle) {
-    std::cout << angle << std::endl;
-    angle = std::min(angle, 45.f);
-    angle = std::max(angle, -45.f);
-    std::cout << angle << std::endl;
-    plane.setAngle(angle);
+void Scene::setPlaneAngle(float angle, bool force) {
+    auto normalizeAngle = std::min(angle, 45.f);
+    normalizeAngle = std::max(normalizeAngle, -45.f);
+    std::cout << angle << " -> " << normalizeAngle<< std::endl;
+    plane.setAngle(normalizeAngle, force);
 }
 
 void Scene::setArduinoMode() {

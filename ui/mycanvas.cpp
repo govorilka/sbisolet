@@ -15,12 +15,40 @@ MyCanvas::MyCanvas(QWidget* parent)
     : QtSFMLCanvas(parent)
 {}
 
+void MyCanvas::setPlaneAngle(float angle)
+{
+    if (mScene)
+    {
+        mScene->setPlaneAngle(angle, true);
+    }
+}
+
 void MyCanvas::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_S && mScene)
+    if (!mScene)
     {
-        mScene->start();
+        return;
     }
+
+    switch(event->key()) {
+    case Qt::Key_Q:
+        mScene->start();
+        break;
+    case Qt::Key_W:
+        mScene->setPlaneAngle(45);
+        break;
+    case Qt::Key_S:
+        mScene->setPlaneAngle(-45);
+        break;
+    case Qt::Key_A:
+        mScene->setPlaneAngle(0);
+        break;
+    }
+//    if (event->key() == Qt::Key_S && mScene)
+//    {
+//        mScene->start();
+//    }
+
 }
 
 void MyCanvas::OnInit()

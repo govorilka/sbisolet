@@ -50,7 +50,7 @@ public:
 
     void start();
 
-    void setPlaneAngle(float angle);
+    void setPlaneAngle(float angle, bool force = false);
     void setArduinoMode();
     void setKeyboardMode();
 

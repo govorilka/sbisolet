@@ -13,8 +13,8 @@ class MyCanvas : public QtSFMLCanvas
 {
 public :
     MyCanvas(QWidget* parent = nullptr);
-//    void set( )
-    Scene* getScene() {return  mScene.get();}
+
+    void setPlaneAngle(float angle);
 
 protected:
    void keyPressEvent(QKeyEvent *event) override;

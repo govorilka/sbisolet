@@ -119,20 +119,29 @@ void MainWindow::readData()
         }
         else
         {
-            std::cout<<"READY COMMAND: "<<nextCommand <<std::endl;
-            try {
+//            std::cout<<"READY COMMAND: "<<nextCommand <<std::endl;
+            try
+            {
              curCommand = CommandParser::getCommand(nextCommand);
-             for (double arg : curCommand.args)
-                 std::cout<<arg<<" ";
-             std::cout<<std::endl<<std::endl;
+//             for (double arg : curCommand.args)
+//                 std::cout<<arg<<" ";
+//             std::cout<<std::endl<<std::endl;
             }
             catch (...) {
                 nextCommand.clear();
                 return;
             }
-//            std::cout<<"ANGLE IS "<<
-//            mCanvas->getScene()->
-            mCanvas->getScene()->setPlaneAngle(curCommand.args.at(0));
+            auto angle = curCommand.args.at(0);
+            std::cout<<"BEFORE :"<< angle<<std::endl;
+            if (angle< -30  )
+                angle = -45;
+            else if ( angle > 30 ) {
+                angle = 45;
+            }
+            else {
+                angle = 0;
+            }
+            mCanvas->setPlaneAngle(angle);
             nextCommand.clear();
             return;
         }

@@ -33,7 +33,7 @@ public:
 
     const FloatRect getGlobalBounds();
 
-    void setAngle(float value);
+    void setAngle(float value, bool force = false);
     void setControlMode(bool isKeyboardMode);
 
     void initScene();
