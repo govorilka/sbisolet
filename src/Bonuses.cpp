@@ -1,15 +1,21 @@
 #include "precomp.h"
-
+#include "Plane.h"
 #include "Bonuses.h"
 #include <cstdlib>
 
+ Bonuses* Bonuses::instance = nullptr;
+
 Bonuses::Bonuses() {
-    texture.loadFromFile("fuelBirdArmor.png");
+    instance = this;
+    if(!texture.loadFromFile("fuelBirdArmor.png")) {
+        throw std::runtime_error("Failed to load fuelBirdArmor.png");
+    }
+
 }
 void Bonuses::initScene() {
-    for(int i=0;i<3;i++) {
+   /* for(int i=0;i<3;i++) {
         createBonus();
-    }
+    }*/
 }
 
 void Bonuses::update(float deltaTime) {
@@ -17,8 +23,10 @@ void Bonuses::update(float deltaTime) {
 }
 
 void Bonuses::render(RenderWindow &window) {
-    //window.draw(sprite);
-
+    for ( const auto& bonus: bonuses)
+    {
+        window.draw(bonus.sprite);
+    }
 
 }
 
@@ -26,6 +34,9 @@ void Bonuses::createBonus() {
     Bonus bonus;
     bonus.type = getRandomBonusType();
     bonus.sprite = getBonusSprite(bonus.type);
+    //bonus.sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
+    bonus.sprite.setScale(BONUS_SIZE / texture.getSize().x, -BONUS_SIZE / texture.getSize().y);
+    bonus.sprite.setPosition(Plane::instance->getPosition().x + 30, Plane::instance->getPosition().y);
     bonuses.push_back(bonus);
 }
 

@@ -3,6 +3,7 @@
 #include "UI.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <Bonuses.h>
 
 int main()
 {
@@ -29,6 +30,11 @@ int main()
             if (event.type == Event::Closed) {
                 window.close();
             }
+            if (event.type == Event::KeyPressed){
+                if(event.key.code == Keyboard::B){
+                    Bonuses::instance->createBonus();
+                }
+            }   
         }
         deltaTime = clock.restart();
         scene.update(deltaTime.asSeconds());

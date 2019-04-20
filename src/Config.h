@@ -11,6 +11,7 @@ static const int INIT_PLANE_HP = 3;
 static const float MAX_PLANE_HEIGHT = 75;
 static const float MIN_PLANE_HEIGHT = 25;
 
+
 static const float PLANE_SIZE = 10;
 
 static const float KAMIKAZE_SIZE = 10;
@@ -32,3 +33,6 @@ static const float SEGMENT_WIDTH = 0.1;
 static const float SEGMENT_MAX_SHIFT = 0.05;
 static const float SEGMENT_MAX_HEIGHT = 0.4;
 static const float SEGMENT_MIN_HEIGHT = 0.2;
+
+static const float BONUS_SIZE = 15;
+

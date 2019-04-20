@@ -5,6 +5,7 @@
 #include "UI.h"
 #include "terrain.h"
 #include "Camera.h"
+#include "Bonuses.h"
 
 #include "Enemies/Kamikaze.h"
 #include "Enemies/Balloon.h"
@@ -14,7 +15,9 @@ class Scene {
     Plane plane;
     Camera camera;
     Terrain terrain;
+
     Enemies enemies;
+    Bonuses bonuses;
 
     int birds;
     int record;

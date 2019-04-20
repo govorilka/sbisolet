@@ -17,9 +17,10 @@ Scene::Scene(RenderWindow &window)
 
 void Scene::update(float deltaTime) {
     plane.update(deltaTime);
-    enemies.update(deltaTime);
-    terrain.update(deltaTime);
     camera.update(deltaTime);
+    terrain.update(deltaTime);
+    enemies.update(deltaTime);
+    bonuses.update(deltaTime);
     ui.update(deltaTime);
 }
 
@@ -28,6 +29,7 @@ void Scene::render(sf::RenderWindow &window) {
     camera.render(window);
     enemies.render(window);
     terrain.render(window);
+    bonuses.render(window);
     plane.render(window);
     ui.render(window);
 }
@@ -41,10 +43,10 @@ void Scene::initScene() {
     camera.initScene();
     terrain.initScene();
     enemies.initScene();
+    bonuses.initScene();
     time.restart();
     birds = 0;
     lastBirdAddTime = FLT_MAX;
-
 }
 
 bool Scene::isGameOver() {
