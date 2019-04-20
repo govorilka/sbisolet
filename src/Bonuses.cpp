@@ -21,13 +21,20 @@ void Bonuses::initScene() {
 }
 
 void Bonuses::update(float deltaTime) {
-
+float p = 0.2;
     for ( auto it = bonuses.begin(); it != bonuses.end(); )
     {
         auto it_next = it;
         it_next++;
         const auto& bonus = *it;
-        if (bonus.sprite.getGlobalBounds().intersects(Plane::instance->getGlobalBounds()))
+        FloatRect rect = bonus.sprite.getGlobalBounds();
+        float width = rect.width;
+        float height = rect.height;
+        rect.left += width * p;
+        rect.top -= height * p;
+        rect.width = width * (1-p);
+        rect.height = height * (1-p);
+        if (rect.intersects(Plane::instance->getGlobalBounds()))
         {
             bonuses.erase(it);
             applyBonus(bonus);
