@@ -59,7 +59,6 @@ void Terrain::add_new_segment() {
     seg_list.emplace_back(segment);
     Scene::instance->onTerrainSegmentCreated(segment);
 
-
 }
 
 void Terrain::update(float deltaTime)

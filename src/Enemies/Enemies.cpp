@@ -43,15 +43,18 @@ void Enemies::render(RenderWindow &window) {
 
 void Enemies::onTerrainSegmentCreated(const Segment &segment) {
     if (lastKamikazeTime < 0) {
-        enemies.push_back(new Kamikaze(segment.second.x, ENEMIES_KAMIKAZE_MIN_HEIGHT + Utils::getRandomNumber(0, ENEMIES_KAMIKAZE_MAX_EXTRA_HEIGHT)));
+        enemies.push_back(new Kamikaze(segment.first.x, ENEMIES_KAMIKAZE_MIN_HEIGHT +
+                                                        Utils::getRandomNumber(0, ENEMIES_KAMIKAZE_MAX_EXTRA_HEIGHT)));
         lastKamikazeTime = ENEMIES_KAMIKAZE_RELOAD_TIME + (float)(Utils::getRandomNumber(0, ENEMIES_KAMIKAZE_MAX_RELOAD_EXTRA_TIME));
     }
     if (lastBalloonTime < 0) {
-        enemies.push_back(new Balloon(segment.second.x, ENEMIES_BALLOON_MIN_HEIGHT + Utils::getRandomNumber(0, ENEMIES_BALLOON_MAX_EXTRA_HEIGHT)));
+        enemies.push_back(new Balloon(segment.first.x, ENEMIES_BALLOON_MIN_HEIGHT +
+                                                       Utils::getRandomNumber(0, ENEMIES_BALLOON_MAX_EXTRA_HEIGHT)));
         lastBalloonTime = ENEMIES_BALLOON_RELOAD_TIME + (float)(Utils::getRandomNumber(0, ENEMIES_BALLOON_MAX_RELOAD_EXTRA_TIME));
     }
     if (lastCloudTime < 0) {
-        enemies.push_back(new Cloud(segment.second.x, ENEMIES_CLOUD_MIN_HEIGHT + Utils::getRandomNumber(0, ENEMIES_CLOUD_MAX_EXTRA_HEIGHT)));
+        enemies.push_back(new Cloud(segment.first.x, ENEMIES_CLOUD_MIN_HEIGHT +
+                                                     Utils::getRandomNumber(0, ENEMIES_CLOUD_MAX_EXTRA_HEIGHT)));
         lastCloudTime = ENEMIES_CLOUD_RELOAD_TIME + (float)(Utils::getRandomNumber(0, ENEMIES_CLOUD_MAX_RELOAD_EXTRA_TIME)) ;
     }
     if (std::abs(lastBalloonTime - lastCloudTime) < DELTA_TIME)
