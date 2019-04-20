@@ -1,6 +1,7 @@
 #include "precomp.h"
 #include "Plane.h"
 #include "terrain.h"
+#include "Scene.h"
 
 Plane* Plane::instance = nullptr;
 
@@ -26,6 +27,7 @@ void Plane::initScene() {
     setPosition(Vector2f(0, VIEW_SIZE_Y / 2));
     hp = PLANE_INIT_HP;
     fuel = MAX_FUEL;
+    Scene::instance->del_Rocket();
 }
 
 void Plane::update(float deltaTime) {
@@ -70,9 +72,7 @@ void Plane::update(float deltaTime) {
     newPosition.y = std::max(PLANE_MIN_HEIGHT, newPosition.y);
     newPosition.y = std::min(PLANE_MAX_HEIGHT, newPosition.y);
     setPosition(newPosition);
-    /*if(Terrain::instance->isIntersects(getGlobalBoundingCircle())){
-        hp = 0;
-    }*/
+
 }
 
 void Plane::render(RenderWindow& window) {

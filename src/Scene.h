@@ -73,6 +73,7 @@ public:
     void set_record(int value);
     bool isRocket();
     float get_gas();
+    void del_Rocket();
     int getRocketKits();
     void addRocketKit(int value);
 };

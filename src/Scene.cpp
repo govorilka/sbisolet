@@ -168,3 +168,7 @@ void Scene::setKeyboardMode() {
 void Scene::give_Rocket(){
     rocketKits++;
 }
+
+void Scene::del_Rocket(){
+    rocketKits=0;
+}
