@@ -14,7 +14,7 @@ endforeach()
 list(REMOVE_DUPLICATES Sbisolet_INCLUDE_DIRS)
 
 
-add_executable(sbisolet ${Sbisolet_SOURCES} main.cpp)
+add_executable(sbisolet ${Sbisolet_SOURCES} main.cpp )
 
 target_link_libraries(sbisolet sfml-system sfml-window sfml-graphics sfml-audio)
 target_include_directories(sbisolet PRIVATE ${Sbisolet_INCLUDE_DIRS})

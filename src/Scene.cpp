@@ -14,7 +14,14 @@ Scene::Scene(RenderWindow &window)
     isStarted(false),
     finalTime(0)
 {
+    if(!effectsTexture.loadFromFile("effects.png")){
+        throw std::runtime_error("Failed to load effects.png");
+    }
     instance = this;
+}
+
+Texture& Scene::getEffectsTexture() {
+    return effectsTexture;
 }
 
 void Scene::update(float deltaTime) {

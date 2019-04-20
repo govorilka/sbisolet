@@ -37,7 +37,10 @@ public:
     void update(float deltaTime);
     void render(RenderWindow& window);
 
+    float lostControlTime;
+
 private:
+
     void setPosition(Vector2f position);
 
     float getCurrentAngle();

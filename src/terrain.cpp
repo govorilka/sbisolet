@@ -2,7 +2,7 @@
 #include "terrain.h"
 #include "Camera.h"
 #include "Scene.h"
-
+#include "Enemies.h"
 
 Terrain::Terrain() {
 }
@@ -13,8 +13,8 @@ void Terrain::initScene(){
     seg_list.clear();
     vertexes.setPrimitiveType(Quads);
     FloatRect rect = Camera::instance->getRect();
-    x_size =  rect.width*SEGMENT_WIDTH;
-    shift = -rect.height*SEGMENT_MAX_SHIFT;
+    x_size =  rect.width*TERRAIN_SEGMENT_WIDTH;
+    shift = -rect.height*TERRAIN_SEGMENT_MAX_SHIFT;
 
     do{
         add_new_segment();
@@ -36,7 +36,7 @@ void Terrain::new_vertex_array() {
 
 void Terrain::add_new_segment() {
     FloatRect rect = Camera::instance->getRect();
-    float new_y = -rect.height*SEGMENT_MIN_HEIGHT;
+    float new_y = -rect.height*TERRAIN_SEGMENT_MIN_HEIGHT;
     float new_x = rect.left;
     Segment segment;
     if(seg_list.empty()){
@@ -44,7 +44,7 @@ void Terrain::add_new_segment() {
     }else{
         Vector2f last_point = seg_list.back().second;
         new_y = last_point.y;
-        if((rand()%2 && new_y < -rect.height*SEGMENT_MAX_HEIGHT) || ( new_y < -rect.height*SEGMENT_MIN_HEIGHT))
+        if((rand()%2 && new_y < -rect.height*TERRAIN_SEGMENT_MAX_HEIGHT) || ( new_y < -rect.height*TERRAIN_SEGMENT_MIN_HEIGHT))
         {
             new_y += (float)rand()/RAND_MAX*shift;
         }else
@@ -55,6 +55,7 @@ void Terrain::add_new_segment() {
     }
     seg_list.emplace_back(segment);
     Scene::instance->onTerrainSegmentCreated(segment);
+
 
 }
 

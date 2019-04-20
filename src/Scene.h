@@ -16,8 +16,12 @@ class Scene {
     Camera camera;
     Terrain terrain;
 
+
+
     Enemies enemies;
     Bonuses bonuses;
+
+    Texture effectsTexture;
 
     int birds;
     int record;
@@ -26,6 +30,7 @@ class Scene {
     Clock time;
     float finalTime;
     float lastBirdAddTime;
+
 
     bool isStarted;
 
@@ -44,9 +49,11 @@ public:
 
     bool isGameOver();
 
+
     void start();
 
     void setPlaneAngle(float angle);
+
 
     float getlastBirdTime();
     float getlastRocketKitTime();
@@ -55,6 +62,9 @@ public:
     int getBirds();
 
     int get_score();
+
+    Texture& getEffectsTexture();
+
 
     int getFinalScore();
     int get_hp();

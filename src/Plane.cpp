@@ -7,7 +7,8 @@ Plane::Plane()
     :angle(0),
      hp(INIT_PLANE_HP),
      fuel(MAX_FUEL),
-     godModeTimeLeft(0)
+     godModeTimeLeft(0),
+     lostControlTime(0)
     {
     instance = this;
     if(!texture.loadFromFile("plane.png")) {
@@ -27,6 +28,7 @@ void Plane::initScene() {
 
 void Plane::update(float deltaTime) {
     godModeTimeLeft -= deltaTime;
+    lostControlTime -= deltaTime;
     float fuel_dec = 0;
     if (Keyboard::isKeyPressed(Keyboard::Up) && fuel > 0 && getPosition().y < MAX_PLANE_HEIGHT - 2.5) {
         fuel_dec = FUEL_DEC_UP;
