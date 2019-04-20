@@ -5,23 +5,26 @@
 
 UI::UI(RenderWindow &window) : rect(0, 0, window.getSize().x * 1000 / window.getSize().y, 1000) {
 
-    texture.loadFromFile("heart.png");
-    texture_kit.loadFromFile("rocket.png");
-    texture_bird.loadFromFile("rocket.png");
+    if(!texture.loadFromFile("effects.png")){
+        throw std::runtime_error("Failed to load effects.png");
+    }
 
-    sprite.setTexture(texture);
-    sprite.setOrigin(texture.getSize().x/2, texture.getSize().y / 2);
-    sprite.setScale(PLANE_SIZE*10 / texture.getSize().x, PLANE_SIZE*10 / texture.getSize().y);
+    hp_spr.setTexture(texture);
+    hp_spr.setOrigin(128,128);
+    hp_spr.setScale(UI_HEART_SIZE/ 256, UI_HEART_SIZE / 256);
+    hp_spr.setTextureRect(IntRect (0,512,256,256));
 
-    rocketKit.setTexture(texture_kit);
-    rocketKit.setOrigin(texture_kit.getSize().x/2,texture_kit.getSize().y/2);
-    rocketKit.setScale(UI_KIT_SIZE / texture_kit.getSize().x, UI_KIT_SIZE / texture_kit.getSize().y);
-    kitScale=Vector2f(UI_KIT_SIZE / texture_kit.getSize().x, UI_KIT_SIZE / texture_kit.getSize().y);
+    rocketKit.setTexture(texture);
+    rocketKit.setOrigin(128,128);
+    rocketKit.setScale(UI_KIT_SIZE / 256, UI_KIT_SIZE / 256);
+    rocketKit.setTextureRect(IntRect (512,768,256,256));
+    kitScale=Vector2f(UI_KIT_SIZE / 256, UI_KIT_SIZE / 256);
 
-    bird.setTexture(texture_bird);
-    bird.setOrigin(texture_bird.getSize().x/2,texture_bird.getSize().y/2);
-    bird.setScale(UI_BIRD_SIZE / texture_bird.getSize().x, UI_BIRD_SIZE  / texture_bird.getSize().y);
-    birdScale=Vector2f(UI_BIRD_SIZE / texture_bird.getSize().x, UI_BIRD_SIZE  / texture_bird.getSize().y);
+    bird.setTexture(texture);
+    bird.setOrigin(128,128);
+    bird.setScale(UI_BIRD_SIZE / 256, UI_BIRD_SIZE  / 256);
+    bird.setTextureRect(IntRect(256,0,256,256));
+    birdScale=Vector2f(UI_BIRD_SIZE / 256, UI_BIRD_SIZE  / 256);
 
     font.loadFromFile("arial.ttf");
     Fothers.loadFromFile("natron.ttf");
@@ -36,21 +39,12 @@ UI::UI(RenderWindow &window) : rect(0, 0, window.getSize().x * 1000 / window.get
     score.setColor(Color::Red);//set it later
     score.setStyle(Text::Bold);
 
-    hp.setFont(Fothers);
-    hp.setCharacterSize(55);
-    hp.setColor(Color(255, 58, 129));
-    hp.setStyle(Text::Regular | Text::Bold);
-
-    time.setFont(Fothers);
-    time.setCharacterSize(55);
-    time.setColor(Color(255, 254, 210));
-    time.setStyle(Text::Regular);
-
-    cur_score.setFont(Fothers);
-    cur_score.setCharacterSize(55);
-    cur_score.setColor(Color(255, 254, 210));
-    cur_score.setStyle(Text::Regular);
-
+    /*
+    game_over.setFont(font);
+    game_over.setCharacterSize(90);
+    game_over.setColor(Color::Red);
+    game_over.setStyle(Text::Bold);
+    */
     best_score.setFont(font);
     best_score.setCharacterSize(50);
     best_score.setColor(Color::Red);//set it later
@@ -83,14 +77,9 @@ void UI::update(float deltaTime) {
 
     score.setString("Your score: " + std::to_string(scene->getFinalScore()));
     game_over.setString("GAME OVER");
-    hp.setString("HP: " + std::to_string(scene->get_hp()));
     count_birds.setString("x "+std::to_string(scene->getBirds()));
     count_rocketkit.setString("x "+std::to_string(scene->getRocketKits()));
 
-    char str[32];
-    sprintf(str,"%.1f",scene->get_time());
-    time.setString(std::string("Time: ") +str);
-    cur_score.setString("Score: " + std::to_string(scene->getFinalScore()));
     best_score.setString("Best result: " + std::to_string(scene->get_record()));
 
     //gas
@@ -99,10 +88,10 @@ void UI::update(float deltaTime) {
     rectangle.setPosition(rect.width/2-rectangle.getSize().x/2,(UI_BAR_HEIGHT-0.5)*rect.height/UI_BAR_HEIGHT-rectangle.getSize().y/2);
     rectangle.setOutlineThickness(1.f);
     rectangle.setOutlineColor(Color(0,0,0));
-
     rectangle_in.setSize(Vector2f((scene->get_gas())*400.f,50.f));
     rectangle_in.setFillColor(Color(255,137,47));
     rectangle_in.setPosition(rect.width/2-rectangle.getSize().x/2,(UI_BAR_HEIGHT-0.5)*rect.height/UI_BAR_HEIGHT-rectangle.getSize().y/2);
+
 
     bar.setSize(Vector2f(rect.width,rect.height/UI_BAR_HEIGHT));
     bar.setFillColor(UI_BAR_COLOR);
@@ -114,22 +103,18 @@ void UI::update(float deltaTime) {
     score.setPosition(rect.width / 2 - score.getLocalBounds().width / 2,
                       rect.height / 2 - score.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height);
 
-    hp.setPosition(rect.width / 30 , 15 * rect.height / 16 - hp.getLocalBounds().height);
-    time.setPosition(rect.width / 3,
-                     15 * rect.height / 16 - time.getLocalBounds().height);
-    cur_score.setPosition(rect.width / 30 , rect.height / 16 - cur_score.getLocalBounds().height);
-
     best_score.setPosition(rect.width / 2 - best_score.getLocalBounds().width / 2,
                            rect.height / 2 - best_score.getLocalBounds().height / 2 + 1.5 * game_over.getLocalBounds().height);
-    new_record.setPosition(rect.width / 2 - new_record.getLocalBounds().width / 2,
-                      rect.height / 2 - new_record.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height);
+    //new_record.setPosition(rect.width / 2 - new_record.getLocalBounds().width / 2,
+      //                rect.height / 2 - new_record.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height);
 
-    count_birds.setPosition(rect.width/2-texture_bird.getSize().x/3,rect.height/14-texture_bird.getSize().y/4);
-    count_rocketkit.setPosition(13*rect.width/15+UI_BIRD_SIZE,(UI_BAR_HEIGHT-1)*rect.height/UI_BAR_HEIGHT+count_rocketkit.getLocalBounds().height/2);
-
-    sprite.setPosition(rect.width/15,14*rect.height/15);
-    rocketKit.setPosition(13*rect.width/15,14*rect.height/15);
-    bird.setPosition(rect.width/2-5*texture_bird.getSize().x/8,rect.height/14);
+    hp_spr.setPosition(rect.width/15,14*rect.height/15);
+    //rocketkit
+    count_rocketkit.setPosition(UI_ROCKETKIT_WIDTH*rect.width/100,(UI_BAR_HEIGHT-1)*rect.height/UI_BAR_HEIGHT+count_rocketkit.getLocalBounds().height);
+    rocketKit.setPosition((UI_ROCKETKIT_WIDTH-2)*rect.width/100,14*rect.height/15);
+    //bird
+    bird.setPosition(rect.width/2-UI_BIRD_SIZE/3,UI_TOP_BAR_SIZE/2);
+    count_birds.setPosition(rect.width/2,UI_TOP_BAR_SIZE/2-count_birds.getLocalBounds().height);
 
    if(scene->get_time()-scene->getlastBirdTime()>0 && scene->get_time()-scene->getlastBirdTime()<UI_BIRD_MAX_TIME){
        float bird_scale_scalar=UI_BIRD_MAX_SCALE-(UI_BIRD_MAX_SCALE-1)*(scene->get_time()-scene->getlastBirdTime())/UI_BIRD_MAX_TIME;
@@ -150,8 +135,8 @@ void UI::update(float deltaTime) {
 void UI::render(sf::RenderWindow &window) {
     View view(rect);
     window.setView(view);
-
     Scene* scene=Scene::instance;
+
 
     if (Scene::instance->isGameOver() || Keyboard::isKeyPressed(Keyboard::D)) {
         if(scene->getFinalScore() < scene->get_record()) {
@@ -161,34 +146,35 @@ void UI::render(sf::RenderWindow &window) {
         } else {
             scene->set_record(scene->getFinalScore());
             new_record.setString("New world record: " + std::to_string(scene->get_record()));
+            new_record.setPosition(rect.width / 2 - new_record.getLocalBounds().width / 2,
+                                   rect.height / 2 - new_record.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height);
             window.draw(new_record);
             window.draw(game_over);
         }
 
     } else {
-       // window.draw(hp);
-       // window.draw(time);
-        window.draw(bar);//Down bar
-       // window.draw(cur_score);
+       window.draw(bar);//Down bar
        window.draw(bird);//SBIS BIRD
        window.draw(count_birds);//SBIS BIRDS-coutt
        window.draw(rectangle);//FUEL
        window.draw(rectangle_in);//FUEL
-      if(scene->getRocketKits()>0) window.draw(count_rocketkit);//Count kits
-
         if(scene->isRocket()){
             window.draw(rocketKit);
+            window.draw(count_rocketkit);//Count kits
         }
-        sprite.setPosition(rect.width/15,14*rect.height/15);
-        window.draw(sprite);
+
+
+        hp_spr.setPosition(UI_HEART_WIDTH,14*rect.height/15);
+        window.draw(hp_spr);
         if(scene->get_hp()>1) {
-            sprite.setPosition(rect.width / 15 + texture.getSize().x / 4, 14 * rect.height / 15);
-            window.draw(sprite);
+            hp_spr.setPosition(UI_HEART_WIDTH+ UI_HEART_DIST + UI_HEART_SIZE, 14 * rect.height / 15);
+            window.draw(hp_spr);
         }
         if(scene->get_hp()>2) {
-            sprite.setPosition(rect.width / 15 + 2 * texture.getSize().x / 4, 14 * rect.height / 15);
-            window.draw(sprite);
+            hp_spr.setPosition(UI_HEART_WIDTH + 2 * UI_HEART_DIST + 2*UI_HEART_SIZE, 14 * rect.height / 15);
+            window.draw(hp_spr);
         }
+
     }
 
 }

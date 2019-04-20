@@ -62,8 +62,14 @@ static const float UI_GAS_HEIGHT=50;
 static const float UI_BIRD_MAX_TIME=0.25;
 static const float UI_BIRD_MAX_SCALE=1.25;
 static const float UI_KIT_SIZE=100;
+static const float UI_TOP_BAR_SIZE=180;
+static const float UI_HEART_SIZE=100;
+static const float UI_BIRD_SIZE = 150;
+static const float UI_ROCKETKIT_WIDTH=93;//from 0 to 100(15+ required)
+static const float UI_HEART_DIST=30;
+static const float UI_HEART_WIDTH=100;
 
-static const float UI_BIRD_SIZE = 100;
+
 #define UI_BAR_COLOR Color(0,0,0,80)
 
 //FINAL SCORE

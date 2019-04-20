@@ -2,12 +2,11 @@
 
 
 class UI {
-    Sprite sprite;//hp
+    Sprite hp_spr;//hp
     Texture texture;//hp
     Sprite rocketKit;
-    Texture texture_kit;
     Sprite bird;
-    Texture texture_bird;
+
     Vector2f birdScale,kitScale;
 private:
     FloatRect rect;
@@ -15,12 +14,12 @@ private:
     RectangleShape rectangle,rectangle_in,bar;
     Font font;
     Text game_over;//main title
-    Text score,time,hp;
-    Text cur_score;
+    Text score;
     Text best_score;
     Text new_record;
     Text count_birds;
     Text count_rocketkit;
+    Text its_fuel;
     Font Fothers;
 
 public:
