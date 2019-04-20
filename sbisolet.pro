@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,7 +23,9 @@ INCLUDEPATH += src
 HEADERS += \
         ui/mainwindow.h \
         ui/mycanvas.h \
-        ui/qtsfmlcanvas.h
+        ui/qtsfmlcanvas.h \
+        ui/settingsdialog.h \
+        ui/command.h \
 
 HEADERS += \
         src/terrain.h \
@@ -46,7 +48,9 @@ SOURCES += \
         ui/main.cpp \
         ui/mainwindow.cpp \
         ui/mycanvas.cpp \
-        ui/qtsfmlcanvas.cpp
+        ui/qtsfmlcanvas.cpp \
+        ui/settingsdialog.cpp \
+        ui/command.cpp \
 
 SOURCES += \
         src/UI.cpp \
@@ -64,7 +68,11 @@ SOURCES += \
         src\Enemies\Kamikaze.cpp
 
 FORMS += \
-        ui/mainwindow.ui
+        ui/mainwindow.ui \
+        ui/settingsdialog.ui 
+
+RESOURCES += \
+    sbisolet.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
