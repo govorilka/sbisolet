@@ -10,8 +10,10 @@ static const float PLANE_V_SPEED = 20;
 
 static const int PLANE_INIT_HP = 3;
 
+
 static const float PLANE_MAX_HEIGHT = 75;
 static const float PLANE_MIN_HEIGHT = 0;
+
 
 static const float PLANE_SIZE = 10;
 
@@ -78,9 +80,9 @@ static const float ANGLE_DELTA = 3;
 static const float ENEMIES_KAMIKAZE_SIZE = 20;
 
 static const float ENEMIES_KAMIKAZE_H_SPEED = 12.5;
-static const float ENEMIES_KAMIKAZE_V_SPEED = 10;
+static const float ENEMIES_KAMIKAZE_V_SPEED = 0;
 
-static const int ENEMIES_KAMIKAZE_RELOAD_TIME = 20;
+static const int ENEMIES_KAMIKAZE_RELOAD_TIME = 7;
 
 static const int ENEMIES_KAMIKAZE_DAMAGE = 2;
 static const int ENEMIES_KAMIKAZE_MIN_HEIGHT=30;
@@ -91,7 +93,7 @@ static const float ENEMIES_BALLOON_V_SIZE = 20;
 static const float ENEMIES_BALLOON_H_SPEED = 0;
 static const float ENEMIES_BALLOON_V_SPEED = 5;
 
-static const int ENEMIES_BALLOON_RELOAD_TIME = 20;
+static const int ENEMIES_BALLOON_RELOAD_TIME = 7;
 
 static const int ENEMIES_BALLOON_DAMAGE = 1;
 static const int ENEMIES_BALLOON_MIN_HEIGHT = 30;
@@ -102,11 +104,16 @@ static const float ENEMIES_CLOUD_V_SIZE = 20;
 static const float ENEMIES_LIGHTNING_H_SIZE = 7;
 static const float ENEMIES_LIGHTNING_V_SIZE = 70;
 
-static const int ENEMIES_CLOUD_RELOAD_TIME=7;
+static const int ENEMIES_CLOUD_RELOAD_TIME=5;
 
 static const int ENEMIES_CLOUD_MIN_HEIGHT = 75;
 static const float ENEMIES_LIGHTNING_DURATION = 0.3;
-static const float ENEMIES_LIGHTNING_PERIOD = 1;
+static const float ENEMIES_LIGHTNING_PERIOD = 2.3;
 static const int ENEMIES_CLOUD_DAMAGE = 1;
 static const int ENEMIES_LIGHTNING_DAMAGE = 1;
 
+//Effects
+#define EFFECT_DAMAGE_COLOR Color(255,0,0,190)
+#define EFFECT_LIGHTNING_COLOR Color(255,255,255,190)
+static const float EFFECT_LIGHTNING_DURATION = 0.15;
+static const float EFFECT_DAMAGE_DURATION = 0.3;

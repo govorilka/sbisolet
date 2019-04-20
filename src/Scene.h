@@ -6,7 +6,7 @@
 #include "terrain.h"
 #include "Camera.h"
 #include "Bonuses.h"
-
+#include "SkyEffect.h"
 #include "Enemies/Kamikaze.h"
 #include "Enemies/Balloon.h"
 
@@ -15,6 +15,9 @@ class Scene {
     Plane plane;
     Camera camera;
     Terrain terrain;
+
+
+    SkyEffect skyEffect;
 
     Enemies enemies;
     Bonuses bonuses;
@@ -65,7 +68,12 @@ public:
 
     Texture& getEffectsTexture();
 
+
     void give_Rocket();
+
+    SkyEffect& getSkyEffect();
+
+
     int getFinalScore();
     int get_hp();
     float get_time();

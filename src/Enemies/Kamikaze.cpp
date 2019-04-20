@@ -32,7 +32,7 @@ void Kamikaze::update(float deltaTime) {
         Plane::instance->addHP(-ENEMIES_KAMIKAZE_DAMAGE);
         isAlive = false;
     }
-    if (sprite.getPosition().x < -10) {
+    if (sprite.getPosition().x < Camera::instance->getRect().left-50) {
         isAlive = false;
     }
 }

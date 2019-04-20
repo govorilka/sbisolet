@@ -51,5 +51,6 @@ void Enemies::onTerrainSegmentCreated(const Segment &segment) {
     if (lastCloudTime < 0) {
         enemies.push_back(new Cloud(segment.second.x, ENEMIES_CLOUD_MIN_HEIGHT + Utils::getRandomNumber(0, 20)));
         lastCloudTime = ENEMIES_CLOUD_RELOAD_TIME + (float)(Utils::getRandomNumber(0, 2000)) / 100;
+
     }
 }

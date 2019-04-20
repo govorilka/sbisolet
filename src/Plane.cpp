@@ -1,6 +1,10 @@
 #include "precomp.h"
 #include "Plane.h"
+
 #include "terrain.h"
+#include "Scene.h"
+
+
 #include "Scene.h"
 
 Plane* Plane::instance = nullptr;
@@ -105,7 +109,12 @@ bool Plane::isAlive() {
 void Plane::addHP(int value) {
     if (godModeTimeLeft > 0 && value < 0) return;
     hp += value;
+
+    if(value<0){
+        Scene::instance->getSkyEffect().startEffect(EFFECT_DAMAGE_COLOR,EFFECT_DAMAGE_DURATION);
+    }
     hp = std::min(hp, PLANE_INIT_HP);
+
 }
 
 int Plane::getHP() {

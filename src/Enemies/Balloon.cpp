@@ -10,7 +10,6 @@ Balloon::Balloon(float xPos, float yPos) : isAlive(true) {
     sprite.setScale(ENEMIES_BALLOON_H_SIZE / 256, -ENEMIES_BALLOON_V_SIZE / 256);
     velocity = Vector2f(-ENEMIES_BALLOON_H_SPEED, ENEMIES_BALLOON_V_SPEED);
     sprite.setPosition(xPos, yPos);
-
 }
 
 void Balloon::initScene() {
@@ -23,7 +22,7 @@ void Balloon::update(float deltaTime) {
         Plane::instance->addHP(-ENEMIES_BALLOON_DAMAGE);
         isAlive = false;
     }
-    if (sprite.getPosition().x < -10) {
+    if (sprite.getPosition().x < Camera::instance->getRect().left-50) {
         isAlive = false;
     }
 }

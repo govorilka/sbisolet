@@ -5,12 +5,10 @@
 class Cloud : public GameObject {
     Sprite cloud;
 
-    Vector2f velocity;
-
     Sprite lightning;
     bool damaged;
-    float last_shot_time;
     bool isAlive;
+    float last_shot_time;
 public:
     Cloud(float xPos,float yPos);
 

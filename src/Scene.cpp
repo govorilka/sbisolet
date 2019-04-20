@@ -24,6 +24,10 @@ Texture& Scene::getEffectsTexture() {
     return effectsTexture;
 }
 
+SkyEffect& Scene::getSkyEffect(){
+    return skyEffect;
+}
+
 void Scene::update(float deltaTime) {
     if (isStarted) {
         plane.update(deltaTime);
@@ -31,12 +35,14 @@ void Scene::update(float deltaTime) {
         terrain.update(deltaTime);
         enemies.update(deltaTime);
         bonuses.update(deltaTime);
+        skyEffect.update(deltaTime);
         ui.update(deltaTime);
         finalTime = get_time();
     } else {
         plane.update(deltaTime);
         camera.update(deltaTime);
         terrain.update(deltaTime);
+        skyEffect.update(deltaTime);
         ui.update(deltaTime);
     }
     if (isGameOver()) {
@@ -52,6 +58,7 @@ void Scene::render(sf::RenderWindow &window) {
         terrain.render(window);
         bonuses.render(window);
         plane.render(window);
+        skyEffect.render(window);
         ui.render(window);
     } else {
         camera.render(window);

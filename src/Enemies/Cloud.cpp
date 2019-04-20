@@ -17,10 +17,11 @@ Cloud::Cloud(float xPos,float yPos) {
     lightning.setTextureRect(IntRect(0,256*3,256,256));
     lightning.setOrigin(128, 128);
     lightning.setScale(ENEMIES_LIGHTNING_H_SIZE / 256, -ENEMIES_LIGHTNING_V_SIZE / 256);
-
-    damaged = 0;
+    damaged = false;
     last_shot_time = FLT_MAX;
     isAlive = true;
+
+
 }
 
 void Cloud::initScene() {
@@ -28,8 +29,11 @@ void Cloud::initScene() {
 }
 
 void Cloud::startLightning(){
+    SkyEffect effect = Scene::instance->getSkyEffect();
+    if(effect.activeTime > effect.effectDuration)
+        Scene::instance->getSkyEffect().startEffect(EFFECT_LIGHTNING_COLOR,EFFECT_LIGHTNING_DURATION);
     last_shot_time = Scene::instance->get_time();
-    damaged = 0;
+    damaged = false;
 }
 
 bool Cloud::isLightningActive() {
@@ -43,9 +47,7 @@ bool Cloud::isReadyToShoot(){
 
 void Cloud::update(float deltaTime) {
 
-    cloud.setPosition(cloud.getPosition() + velocity * deltaTime);
-    lightning.setPosition(lightning.getPosition() + velocity * deltaTime);
-    if (cloud.getGlobalBounds().intersects(Plane::instance->getGlobalBounds())) {
+    if (cloud.getGlobalBounds().intersects(Plane::instance->getGlobalBounds()) && Plane::instance->lostControlTime<=0) {
         Plane::instance->lostControlTime = LOST_CONTROL_DURATION;
     }
 
@@ -54,10 +56,14 @@ void Cloud::update(float deltaTime) {
     }
 
     if(isLightningActive() && !damaged && lightning.getGlobalBounds().intersects(Plane::instance->getGlobalBounds())){
-        damaged = 1;
+        damaged = true;
         Plane::instance->addHP(-ENEMIES_LIGHTNING_DAMAGE);
-
     }
+
+    if (cloud.getPosition().x < Camera::instance->getRect().left-50) {
+        isAlive = false;
+    }
+
 
 }
 
