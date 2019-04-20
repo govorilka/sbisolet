@@ -6,7 +6,7 @@ Plane* Plane::instance = nullptr;
 
 Plane::Plane()
     :angle(0),
-     hp(INIT_PLANE_HP),
+     hp(PLANE_INIT_HP),
      fuel(MAX_FUEL),
      godModeTimeLeft(0),
      lostControlTime(0),
@@ -24,7 +24,7 @@ Plane::Plane()
 void Plane::initScene() {
     velocity = Vector2f(PLANE_H_SPEED, 0);
     setPosition(Vector2f(0, VIEW_SIZE_Y / 2));
-    hp = INIT_PLANE_HP;
+    hp = PLANE_INIT_HP;
     fuel = MAX_FUEL;
 }
 
@@ -33,7 +33,7 @@ void Plane::update(float deltaTime) {
     if (lostControlTime > 0) lostControlTime -= deltaTime;
     float fuel_dec = 0;
     if (isKeyboard) {
-        if (Keyboard::isKeyPressed(Keyboard::Up) && fuel > 0 && getPosition().y < MAX_PLANE_HEIGHT - 2.5) {
+        if (Keyboard::isKeyPressed(Keyboard::Up) && fuel > 0 && getPosition().y < PLANE_MAX_HEIGHT - 2.5) {
             fuel_dec = FUEL_DEC_UP;
             setAngle(45);
         } else if (Keyboard::isKeyPressed(Keyboard::Down) || fuel == 0) {
@@ -62,10 +62,13 @@ void Plane::update(float deltaTime) {
             fuel = 0;
         }
     }
+    if (Terrain::instance->isIntersects(getGlobalBoundingCircle())) {
+        hp = 0;
+    }
     sprite.rotate(calculateRotation());
     Vector2f newPosition = sprite.getPosition() + velocity * deltaTime;
-    newPosition.y = std::max(MIN_PLANE_HEIGHT, newPosition.y);
-    newPosition.y = std::min(MAX_PLANE_HEIGHT, newPosition.y);
+    newPosition.y = std::max(PLANE_MIN_HEIGHT, newPosition.y);
+    newPosition.y = std::min(PLANE_MAX_HEIGHT, newPosition.y);
     setPosition(newPosition);
     /*if(Terrain::instance->isIntersects(getGlobalBoundingCircle())){
         hp = 0;
@@ -102,7 +105,7 @@ bool Plane::isAlive() {
 void Plane::addHP(int value) {
     if (godModeTimeLeft > 0 && value < 0) return;
     hp += value;
-    hp = std::min(hp, INIT_PLANE_HP);
+    hp = std::min(hp, PLANE_INIT_HP);
 }
 
 int Plane::getHP() {
@@ -116,7 +119,7 @@ const FloatRect Plane::getGlobalBounds() {
 void Plane::setAngle(float value, bool force) {
 
     if (!isKeyboard && !force) {
-        if (fuel > 0 && getPosition().y > MAX_PLANE_HEIGHT - 2.5 && value > 0) {
+        if (fuel > 0 && getPosition().y > PLANE_MAX_HEIGHT - 2.5 && value > 0) {
             value = 0;
         }
         if (fuel == 0) {

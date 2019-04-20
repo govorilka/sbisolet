@@ -8,10 +8,10 @@ static const float CAMERA_FOLLOW_DISTANCE = 10;
 static const float PLANE_H_SPEED = 30;
 static const float PLANE_V_SPEED = 20;
 
-static const int INIT_PLANE_HP = 3;
+static const int PLANE_INIT_HP = 3;
 
-static const float MAX_PLANE_HEIGHT = 75;
-static const float MIN_PLANE_HEIGHT = 25;
+static const float PLANE_MAX_HEIGHT = 75;
+static const float PLANE_MIN_HEIGHT = 0;
 
 static const float PLANE_SIZE = 10;
 

@@ -79,7 +79,7 @@ void Terrain::render(sf::RenderWindow &window) {
 
 bool Terrain::isIntersects(const Circle& circle){
     for ( const auto& segment: seg_list){
-        if (::isIntersects(circle, segment)){
+        if (::isIntersects(segment, circle)){
             return true;
         }
     }
