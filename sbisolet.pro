@@ -39,7 +39,9 @@ HEADERS += \
         src/GameObject.h \
         src/Segment.h \
         src/Utils.h \
-        src/CollisionUtils.h
+        src/CollisionUtils.h \
+        src/Sounds.h \
+        src/SkyEffect.h
 
 HEADERS += \
         src\Enemies\Balloon.h \
@@ -65,7 +67,9 @@ SOURCES += \
         src/GameObject.cpp \
         src/Segment.cpp \
         src/Utils.cpp \
-        src/CollisionUtils.cpp
+        src/CollisionUtils.cpp \
+        src/Sounds.cpp \
+        src/SkyEffect.cpp
 
 SOURCES += \
         src\Enemies\Balloon.cpp \

@@ -91,14 +91,18 @@ void Plane::update(float deltaTime) {
 
         velocity.y = PLANE_V_SPEED * (getCurrentAngle() / 45);
     }
-
+//    std::cout<<"fuel before : "<<fuel<<std::endl;
     if (fuel > 0) {
         fuel -= fuel_dec * deltaTime;
         if (fuel < 0) {
             fuel = 0;
+            setAngle(-45);
         }
-    }
+    } else {
+    setAngle(-45);
+}
 
+//    std::cout<<"fuel after : "<<fuel<<std::endl;
     if (Terrain::instance->isIntersects(getGlobalBoundingCircle())) {
         if(hp!=0)Sounds::instance->play_big_boom();
         hp = 0;

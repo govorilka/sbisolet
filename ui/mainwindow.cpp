@@ -19,14 +19,13 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , mCanvas(new MyCanvas(this))
+//    , mCanvas(new MyCanvas(this))
     , mStatus(new QLabel)
     , mSettings(new SettingsDialog)
     , mSerial(new QSerialPort(this)),
       curCommand("G",{})
 {
     ui->setupUi(this);
-    setCentralWidget(mCanvas);
 
     ui->actionConnect->setEnabled(true);
     ui->actionDisconnect->setEnabled(false);
@@ -39,6 +38,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(mSerial, &QSerialPort::errorOccurred, this, &MainWindow::handleError);
     connect(mSerial, &QSerialPort::readyRead, this, &MainWindow::readData);
+
+    setWindowState(Qt::WindowFullScreen);
+     mCanvas = new MyCanvas(this);
+     setCentralWidget(mCanvas);
+
 }
 
 MainWindow::~MainWindow()
@@ -126,7 +130,7 @@ void MainWindow::readData()
         {
             try
             {
-                std::cout<<nextCommand.constData()<<std::endl;
+//                std::cout<<nextCommand.constData()<<std::endl;
                 curCommand = CommandParser::getCommand(nextCommand);
             }
             catch (...) {
