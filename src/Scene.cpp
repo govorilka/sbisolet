@@ -25,21 +25,26 @@ void Scene::update(float deltaTime) {
 
 void Scene::render(sf::RenderWindow &window) {
     window.clear(Color(0, 0, 255));
-    terrain.render(window);
     camera.render(window);
     enemies.render(window);
+    terrain.render(window);
     plane.render(window);
     ui.render(window);
 }
 
+void Scene::onTerrainSegmentCreated(const Segment &segment) {
+
+}
 
 void Scene::initScene() {
     plane.initScene();
     camera.initScene();
+    terrain.initScene();
     enemies.initScene();
     time.restart();
     birds = 0;
     lastBirdAddTime = FLT_MAX;
+
 }
 
 bool Scene::isGameOver() {
@@ -82,3 +87,4 @@ float Scene::getlastBirdTime() {
 int Scene::getBirds() {
     return birds;
 }
+

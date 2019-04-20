@@ -30,6 +30,7 @@ public:
     void initScene();
     void update(float deltaTime);
     void render(RenderWindow& window);
+    void onTerrainSegmentCreated(const Segment& segment);
 
     bool isGameOver();
 

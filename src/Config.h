@@ -1,9 +1,9 @@
 #pragma once
-
+#define TERRAIN_COLOR Color::Green
 static const float VIEW_SIZE_Y = 100;
 static const float CAMERA_FOLLOW_DISTANCE = 10;
 
-static const float PLANE_H_SPEED = 25;
+static const float PLANE_H_SPEED = 30;
 static const float PLANE_V_SPEED = 20;
 
 static const int INIT_PLANE_HP = 3;
@@ -27,3 +27,8 @@ static const float BALLOON_H_SPEED = 0;
 static const float BALLOON_V_SPEED = 5;
 
 static const int BALLOON_DAMAGE = 1;
+
+static const float SEGMENT_WIDTH = 0.1;
+static const float SEGMENT_MAX_SHIFT = 0.05;
+static const float SEGMENT_MAX_HEIGHT = 0.4;
+static const float SEGMENT_MIN_HEIGHT = 0.2;
