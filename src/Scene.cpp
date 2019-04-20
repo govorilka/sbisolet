@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cfloat>
 #include "precomp.h"
 #include "Scene.h"
 
@@ -8,7 +9,7 @@ Scene* Scene::instance = nullptr;
 Scene::Scene(RenderWindow &window)
    :camera(window),
     ui(window),
-    score(0),
+    birds(0),
     record(0)
 {
     instance = this;
@@ -36,6 +37,9 @@ void Scene::initScene() {
     plane.initScene();
     camera.initScene();
     enemies.initScene();
+    time.restart();
+    birds = 0;
+    lastBirdAddTime = FLT_MAX;
 }
 
 bool Scene::isGameOver() {
@@ -47,12 +51,11 @@ int Scene::get_hp() {
 }
 
 float Scene::get_time() {
-
-    return 321;//seconds
+    return time.getElapsedTime().asSeconds();//seconds
 }
 
 int Scene::get_score() {
-    return score;
+    return birds;
 }
 
 int Scene::get_record() {
@@ -63,6 +66,19 @@ void Scene::set_record(int value) {
     std::max(record, value);
 }
 
-void Scene::addScore(int value) {
-    score += value;
+void Scene::addBirds(int value) {
+    birds += value;
+    lastBirdAddTime = get_time();
+}
+
+int Scene::getFinalScore() {
+    return birds * 100 + (int)get_time() * 10;
+}
+
+float Scene::getlastBirdTime() {
+    return lastBirdAddTime;
+}
+
+int Scene::getBirds() {
+    return birds;
 }

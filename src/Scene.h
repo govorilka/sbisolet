@@ -15,8 +15,11 @@ class Scene {
     Terrain terrain;
     Enemies enemies;
 
-    int score;
+    int birds;
     int record;
+
+    Clock time;
+    float lastBirdAddTime;
 
 public:
     static Scene* instance;
@@ -29,11 +32,15 @@ public:
 
     bool isGameOver();
 
-    void addScore(int value);
+    float getlastBirdTime();
+    void addBirds(int value);
+    int getBirds();
 
+    int get_score();
+
+    int getFinalScore();
     int get_hp();
     float get_time();
-    int get_score();
     int get_record();
     void set_record(int value);
 };
