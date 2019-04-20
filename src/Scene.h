@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Enemies/Enemies.h>
 #include "Plane.h"
 #include "UI.h"
 #include "terrain.h"
@@ -12,8 +13,10 @@ class Scene {
     Plane plane;
     Camera camera;
     Terrain terrain;
-    Kamikaze kamikaze;
-    Balloon balloon;
+    Enemies enemies;
+
+    int score;
+    int record;
 
 public:
     static Scene* instance;
@@ -25,6 +28,8 @@ public:
     void render(RenderWindow& window);
 
     bool isGameOver();
+
+    void addScore(int value);
 
     int get_hp();
     float get_time();

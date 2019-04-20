@@ -7,15 +7,16 @@ Scene* Scene::instance = nullptr;
 
 Scene::Scene(RenderWindow &window)
    :camera(window),
-    ui(window)
+    ui(window),
+    score(0),
+    record(0)
 {
     instance = this;
 }
 
 void Scene::update(float deltaTime) {
     plane.update(deltaTime);
-    kamikaze.update(deltaTime);
-    balloon.update(deltaTime);
+    enemies.update(deltaTime);
     terrain.update(deltaTime);
     camera.update(deltaTime);
     ui.update(deltaTime);
@@ -25,8 +26,7 @@ void Scene::render(sf::RenderWindow &window) {
     window.clear(Color(0, 0, 255));
     terrain.render(window);
     camera.render(window);
-    kamikaze.render(window);
-    balloon.render(window);
+    enemies.render(window);
     plane.render(window);
     ui.render(window);
 }
@@ -35,8 +35,7 @@ void Scene::render(sf::RenderWindow &window) {
 void Scene::initScene() {
     plane.initScene();
     camera.initScene();
-    kamikaze.initScene();
-    balloon.initScene();
+    enemies.initScene();
 }
 
 bool Scene::isGameOver() {
@@ -53,14 +52,17 @@ float Scene::get_time() {
 }
 
 int Scene::get_score() {
-    return 323123;
+    return score;
 }
 
 int Scene::get_record() {
-    return 0;
+    return record;
 }
 
 void Scene::set_record(int value) {
+    std::max(record, value);
+}
 
-
+void Scene::addScore(int value) {
+    score += value;
 }

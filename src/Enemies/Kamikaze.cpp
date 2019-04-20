@@ -3,7 +3,9 @@
 #include "Plane.h"
 
 Kamikaze::Kamikaze() {
-    texture.loadFromFile("kamikazePlaceholder.png");
+    if (!texture.loadFromFile("kamikazePlaceholder.png")) {
+        throw std::runtime_error("Failed to load kamikazePlaceholder");
+    }
     sprite.setTexture(texture);
     sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
     sprite.setScale(KAMIKAZE_SIZE / texture.getSize().x, -KAMIKAZE_SIZE / texture.getSize().y);
@@ -12,6 +14,7 @@ Kamikaze::Kamikaze() {
 
 void Kamikaze::initScene() {
     sprite.setPosition(200, 50);
+    isAlive = true;
 }
 
 void Kamikaze::update(float deltaTime) {
@@ -27,10 +30,14 @@ void Kamikaze::update(float deltaTime) {
     sprite.setPosition(sprite.getPosition() + velocity * deltaTime);
     if (sprite.getGlobalBounds().intersects(Plane::instance->getGlobalBounds())) {
         Plane::instance->addHP(-KAMIKAZE_DAMAGE);
-        sprite.setPosition(-100, -100);
+        isAlive = false;
     }
 }
 
 void Kamikaze::render(RenderWindow &window) {
     window.draw(sprite);
+}
+
+bool Kamikaze::isToBeRemoved() {
+    return !isAlive;
 }
