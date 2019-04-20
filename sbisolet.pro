@@ -37,7 +37,8 @@ HEADERS += \
         src/Bonuses.h \
         src/UI.h \
         src/GameObject.h \
-        src/Segment.h
+        src/Segment.h \
+        src/Utils.h
 
 HEADERS += \
         src\Enemies\Balloon.h \
@@ -61,7 +62,8 @@ SOURCES += \
         src/Camera.cpp \
         src/Bonuses.cpp \
         src/GameObject.cpp \
-        src/Segment.cpp
+        src/Segment.cpp \
+        src/Utils.cpp
 
 SOURCES += \
         src\Enemies\Balloon.cpp \
