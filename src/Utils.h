@@ -1,5 +1,7 @@
 #pragma once
 
+#include <random>
+
 class Utils {
     static std::random_device generator;
 
