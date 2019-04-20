@@ -7,4 +7,6 @@ class Utils {
 
 public:
     static int getRandomNumber(int min, int max);
+
+    static bool isInRange(int value, int min, int max);
 };

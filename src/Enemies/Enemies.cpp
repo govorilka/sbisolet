@@ -16,6 +16,8 @@ void Enemies::initScene() {
     lastBalloonTime = ENEMIES_BALLOON_RELOAD_TIME + (float)(Utils::getRandomNumber(0, 500)) / 100;
     lastKamikazeTime = ENEMIES_KAMIKAZE_RELOAD_TIME + (float)(Utils::getRandomNumber(0, 100)) / 100;
     lastCloudTime = ENEMIES_CLOUD_RELOAD_TIME + (float)(Utils::getRandomNumber(0, 200)) / 100;
+    lastCloudTime = 5;
+    lastBalloonTime = 5;
 }
 
 void Enemies::update(float deltaTime) {
@@ -51,6 +53,7 @@ void Enemies::onTerrainSegmentCreated(const Segment &segment) {
     if (lastCloudTime < 0) {
         enemies.push_back(new Cloud(segment.second.x, ENEMIES_CLOUD_MIN_HEIGHT + Utils::getRandomNumber(0, ENEMIES_CLOUD_MAX_EXTRA_HEIGHT)));
         lastCloudTime = ENEMIES_CLOUD_RELOAD_TIME + (float)(Utils::getRandomNumber(0, ENEMIES_CLOUD_MAX_RELOAD_EXTRA_TIME)) ;
-
     }
+    if (std::abs(lastBalloonTime - lastCloudTime) < DELTA_TIME)
+        lastCloudTime += 6 * DELTA_TIME;
 }

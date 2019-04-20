@@ -54,6 +54,8 @@ public:
 
     float lostControlTime;
 
+    bool isGodMode();
+
 private:
 
     void setPosition(Vector2f position);

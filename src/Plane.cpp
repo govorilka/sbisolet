@@ -56,7 +56,7 @@ void Plane::update(float deltaTime) {
     if (lostControlTime > 0) lostControlTime -= deltaTime;
     updateFuelSprites(deltaTime);
     float fuel_dec = 0;
-    if (isKeyboard) {
+    if (isKeyboard) { //todo check in solar
         if(lostControlTime>0){
             setAngle(getCurrentAngle()-EFFECT_ROTATION_SPEED);
         }
@@ -232,4 +232,8 @@ Circle Plane::getBCircleFromSprite(Sprite sprite) {
     circle.center = sprite.getPosition();
     circle.radius = PLANE_FUEL_SIZE/2;
     return circle;
+}
+
+bool Plane::isGodMode() {
+    return godModeTimeLeft > 0;
 }

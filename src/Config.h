@@ -94,7 +94,7 @@ static const float ANGLE_DELTA = 3;
 static const float ENEMIES_KAMIKAZE_SIZE = 20;
 
 static const float ENEMIES_KAMIKAZE_H_SPEED = 12.5;
-static const float ENEMIES_KAMIKAZE_V_SPEED = 10;
+static const float ENEMIES_KAMIKAZE_V_SPEED = 15;
 
 static const int ENEMIES_KAMIKAZE_RELOAD_TIME = 7;
 static const int ENEMIES_KAMIKAZE_MAX_RELOAD_EXTRA_TIME = 10;

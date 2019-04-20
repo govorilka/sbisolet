@@ -36,7 +36,8 @@ public:
 
     static Bonuses* instance;
     void initScene();
-    void onTerrainSegmentCreated(const Segment &segment);
+
+    bool onTerrainSegmentCreated(const Segment &segment);
     void update(float deltaTime);
     void render(RenderWindow& window);
     void applyBonus(const Bonus &bonus);

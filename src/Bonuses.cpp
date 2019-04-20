@@ -45,10 +45,12 @@ void Bonuses::render(RenderWindow &window) {
 
 }
 
-void Bonuses::onTerrainSegmentCreated(const Segment &segment){
+bool Bonuses::onTerrainSegmentCreated(const Segment &segment) {
     if (Utils::getRandomNumber(0, 5) == 0) {
         createBonus(segment);
+        return true;
     }
+    return false;
 }
 
 void Bonuses::createBonus(const Segment &segment) {
