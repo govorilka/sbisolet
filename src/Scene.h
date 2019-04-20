@@ -65,7 +65,7 @@ public:
 
     Texture& getEffectsTexture();
 
-
+    void give_Rocket();
     int getFinalScore();
     int get_hp();
     float get_time();

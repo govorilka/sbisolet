@@ -8,23 +8,34 @@
 
 Bonuses* Bonuses::instance = nullptr;
 
-Bonuses::Bonuses() {
+Bonuses::Bonuses()
+
+{
     instance = this;
     if(!texture.loadFromFile("effects.png")) {
         throw std::runtime_error("Failed to load effects.png");
     }
-
 }
 void Bonuses::initScene() {
+
     bonuses.clear();
 }
 
 void Bonuses::update(float deltaTime) {
-    for ( auto& bonus: bonuses){
-        if (bonus.sprite.getGlobalBounds().intersects(Plane::instance->getGlobalBounds())) {
-            bonus.isAlive = false;
+
+    for ( auto it = bonuses.begin(); it != bonuses.end(); )
+    {
+        auto it_next = it;
+        it_next++;
+        const auto& bonus = *it;
+        if (bonus.sprite.getGlobalBounds().intersects(Plane::instance->getGlobalBounds()))
+        {
+            bonuses.erase(it);
+            applyBonus(bonus);
         }
+        it = it_next;
     }
+
 }
 
 void Bonuses::render(RenderWindow &window) {
@@ -43,7 +54,7 @@ void Bonuses::onTerrainSegmentCreated(const Segment &segment){
 
 void Bonuses::createBonus(const Segment &segment) {
     Bonus bonus;
-    bonus.isAlive = true;
+
     bonus.type = getRandomBonusType();
     bonus.sprite = getBonusSprite(bonus.type);
     bonus.sprite.setOrigin(128,128);
@@ -105,6 +116,15 @@ Sprite Bonuses::getBonusSprite(BonusType type) {
     return sprite;
 }
 
-/*bool Bonuses::isToBeRemoved() {
-    return !isAlive;
-}*/
+void Bonuses::applyBonus(const Bonus &bonus){
+    if (bonus.type == Bonuses::BonusType::FUEL)
+        Plane::instance->addFuel(BONUS_FUEL_ADD);
+    if (bonus.type == Bonuses::BonusType::BIRD)
+        Scene::instance->addBirds(BONUS_TAKE_BIRD);
+    if (bonus.type == Bonuses::BonusType::LIFE)
+        Plane::instance->addHP(BONUS_HEALING);
+    if (bonus.type == Bonuses::BonusType::CLOUD)
+        Plane::instance->addGodModeTime(BONUS_GODMODETIME);
+    if (bonus.type == Bonuses::BonusType::ROCKET)
+        Scene::instance->give_Rocket();
+}

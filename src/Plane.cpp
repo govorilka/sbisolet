@@ -133,6 +133,7 @@ void Plane::addGodModeTime(float seconds) {
     godModeTimeLeft += seconds;
 }
 
+
 float Plane::getFuel() {
     return fuel;
 }

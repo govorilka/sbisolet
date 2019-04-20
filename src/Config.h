@@ -42,6 +42,11 @@ static const float BONUS_ROCKET_SIZE = 10;
 static const float BONUS_CLOUD_SIZE = 15;
 static const float BONUS_FUEL_SIZE = 10;
 
+static const int BONUS_HEALING = 1;
+static const int BONUS_TAKE_BIRD = 1;
+static const int BONUS_FUEL_ADD = 100;
+static const int BONUS_GODMODETIME = 5;
+
 
 //UI
 static const float UI_BAR_HEIGHT=7;//low=high))))

@@ -3,6 +3,9 @@
 
 #include <list>
 #include <cstdlib>
+#include <GameObject.h>
+#include "precomp.h"
+
 class Segment;
 
 class Bonuses {
@@ -16,12 +19,12 @@ public:
         ROCKET
     };
 
-    class Bonus{
+    class Bonus
+    {
     public:
         BonusType   type;
         Sprite      sprite;
 
-        bool isAlive;
     };
 
     
@@ -30,16 +33,18 @@ public:
     std::list<Bonus> bonuses;
 
     Bonuses();
+
     static Bonuses* instance;
     void initScene();
     void onTerrainSegmentCreated(const Segment &segment);
     void update(float deltaTime);
     void render(RenderWindow& window);
+    void applyBonus(const Bonus &bonus);
     void createBonus(const Segment &segment);
     BonusType getRandomBonusType();
     Sprite getBonusSprite(BonusType type);
 
-    bool isToBeRemoved();
+
  private:
     void setPosition(Vector2f position);   
 };

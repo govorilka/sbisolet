@@ -165,3 +165,6 @@ void Scene::setKeyboardMode() {
     plane.setControlMode(true);
 }
 
+void Scene::give_Rocket(){
+    rocketKits++;
+}

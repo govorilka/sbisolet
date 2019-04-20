@@ -27,7 +27,8 @@ public:
     int getHP();
 
     float getFuel();
-    void addFuel(float seconds);
+
+    void addFuel(float fuel);
 
     void addGodModeTime(float value);
 
