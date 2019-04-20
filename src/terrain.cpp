@@ -2,7 +2,7 @@
 #include "terrain.h"
 #include "Camera.h"
 #include "Scene.h"
-#include "Enemies.h"
+#include "Enemies/Enemies.h"
 
 Terrain::Terrain() {
 }

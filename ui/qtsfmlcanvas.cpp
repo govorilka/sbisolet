@@ -47,6 +47,7 @@ void QtSFMLCanvas::showEvent(QShowEvent*)
 
         // Create the SFML window with the widget handle
         RenderWindow::create((sf::WindowHandle)winId());
+        RenderWindow::setFramerateLimit(60);
 
         // Let the derived class do its specific stuff
         OnInit();
@@ -63,7 +64,8 @@ QPaintEngine* QtSFMLCanvas::paintEngine() const
 void QtSFMLCanvas::paintEvent(QPaintEvent*)
 {
     // Let the derived class do its specific stuff
-    OnUpdate();
+    auto angle = 60;
+    OnUpdate(angle);
 
     // Display on screen
     RenderWindow::display();
@@ -74,5 +76,5 @@ void QtSFMLCanvas::paintEvent(QPaintEvent*)
 void QtSFMLCanvas::OnInit()
 {}
 
-void QtSFMLCanvas::OnUpdate()
+void QtSFMLCanvas::OnUpdate(float angle)
 {}

@@ -5,6 +5,7 @@
 
 #include <Scene.h>
 #include <UI.h>
+#include "command.h"
 
 namespace Ui {
     class MainWindow;
@@ -42,6 +43,7 @@ private:
     SettingsDialog* mSettings = nullptr;
     QSerialPort* mSerial = nullptr;
 
+    Command curCommand;
     MyCanvas* mCanvas = nullptr;
 
     bool stable = false;

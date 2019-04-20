@@ -110,7 +110,7 @@ const FloatRect Plane::getGlobalBounds() {
 
 void Plane::setAngle(float value) {
     if (!isKeyboard) {
-        if (fuel > 0 && getPosition().y < MAX_PLANE_HEIGHT - 2.5 && value > 0) {
+        if (fuel > 0 && getPosition().y > MAX_PLANE_HEIGHT - 2.5 && value > 0) {
             value = 0;
         }
         if (fuel == 0) {

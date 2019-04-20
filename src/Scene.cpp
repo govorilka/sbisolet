@@ -151,8 +151,10 @@ void Scene::start() {
 }
 
 void Scene::setPlaneAngle(float angle) {
+    std::cout << angle << std::endl;
     angle = std::min(angle, 45.f);
     angle = std::max(angle, -45.f);
+    std::cout << angle << std::endl;
     plane.setAngle(angle);
 }
 

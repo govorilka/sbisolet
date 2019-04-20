@@ -23,7 +23,7 @@ protected: // QWidget
 
 protected: // Children API
     virtual void OnInit() = 0;
-    virtual void OnUpdate() = 0;
+    virtual void OnUpdate(float angle) = 0;
 
 private:
     int mFrameTime = 0;

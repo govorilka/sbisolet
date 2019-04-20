@@ -42,7 +42,8 @@ HEADERS += \
 HEADERS += \
         src\Enemies\Balloon.h \
         src\Enemies\Enemies.h \
-        src\Enemies\Kamikaze.h
+        src\Enemies\Kamikaze.h \
+        src\Enemies\Cloud.h
 
 SOURCES += \
         ui/main.cpp \
@@ -65,7 +66,8 @@ SOURCES += \
 SOURCES += \
         src\Enemies\Balloon.cpp \
         src\Enemies\Enemies.cpp \
-        src\Enemies\Kamikaze.cpp
+        src\Enemies\Kamikaze.cpp \
+        src\Enemies\Cloud.cpp
 
 FORMS += \
         ui/mainwindow.ui \

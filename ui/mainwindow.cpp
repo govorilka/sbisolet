@@ -22,7 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
     , mCanvas(new MyCanvas(this))
     , mStatus(new QLabel)
     , mSettings(new SettingsDialog)
-    , mSerial(new QSerialPort(this))
+    , mSerial(new QSerialPort(this)),
+      curCommand("G",{})
 {
     ui->setupUi(this);
     setCentralWidget(mCanvas);
@@ -100,7 +101,6 @@ void MainWindow::readData()
     char x = 0;
     if (!stable)
     {
-        std::cout<<x<<std::endl;
         while (mSerial->getChar(&x))
         {
             if (x == ';')
@@ -115,53 +115,28 @@ void MainWindow::readData()
     {
         if (x!=';')
         {
-#ifdef linux
-            if (x=='.') // =)
-                x= ',';
-#endif
             nextCommand+=x;
         }
         else
         {
             std::cout<<"READY COMMAND: "<<nextCommand <<std::endl;
             try {
-             Command a = CommandParser::getCommand(nextCommand);
-             for (double arg : a.args)
+             curCommand = CommandParser::getCommand(nextCommand);
+             for (double arg : curCommand.args)
                  std::cout<<arg<<" ";
              std::cout<<std::endl<<std::endl;
             }
             catch (...) {
+                nextCommand.clear();
+                return;
             }
-
+//            std::cout<<"ANGLE IS "<<
+//            mCanvas->getScene()->
+            mCanvas->getScene()->setPlaneAngle(curCommand.args.at(0));
             nextCommand.clear();
             return;
         }
     }
-
-//    m_serial->getChar(&x);
-//    if (x==';') {
-//        stable = true;
-//    }
-//    command+=x;
-
-//    std::cout<<x<<std::endl;
-//    std::cout<<"READED "<<m_serial->read(x,250)<<std::endl;
-
-/*    const QByteArray data = m_serial->read(15);
-    //m_serial->readLine(
-//    std::cout << data.constData() << std::endl
-    auto str = std::string(data.constData());
-    std::cout<<"STRING GOT "<<str<<std::endl<<std::endl;
-    try {
-    auto command = CommandParser::getCommand(str);
-    std::cout<<"TYPE "<<(int)command.type<<std::endl <<"ARGS: ";
-    for (auto& arg: command.args)
-        std::cout<<arg<<std::endl;
-    std::cout<<std::endl;
-    }
-    catch (std::exception& exc) {}
-    std::cout << str.constData() << std::endl; */
-//    Q_UNUSED(data);
 }
 
 void MainWindow::handleError(QSerialPort::SerialPortError error)

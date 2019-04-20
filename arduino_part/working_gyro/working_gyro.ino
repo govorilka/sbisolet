@@ -170,6 +170,6 @@ void loop() {
   Serial.print(kalAngleY);
   Serial.print(";");
 //  Serial.print("\r\n");
-//  delay(5000);
+//  delay(1000);
   delay(2);
 }
