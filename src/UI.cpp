@@ -13,9 +13,10 @@ UI::UI(RenderWindow &window) : rect(0, 0, window.getSize().x * 1000 / window.get
     sprite.setOrigin(texture.getSize().x/2, texture.getSize().y / 2);
     sprite.setScale(PLANE_SIZE*10 / texture.getSize().x, PLANE_SIZE*10 / texture.getSize().y);
 
-    kit.setTexture(texture_kit);
-    kit.setOrigin(texture_kit.getSize().x/2,texture_kit.getSize().y/2);
-    kit.setScale(PLANE_SIZE*10 / texture_kit.getSize().x, PLANE_SIZE*10 / texture_kit.getSize().y);
+    rocketKit.setTexture(texture_kit);
+    rocketKit.setOrigin(texture_kit.getSize().x/2,texture_kit.getSize().y/2);
+    rocketKit.setScale(UI_KIT_SIZE / texture_kit.getSize().x, UI_KIT_SIZE / texture_kit.getSize().y);
+    kitScale=Vector2f(UI_KIT_SIZE / texture_kit.getSize().x, UI_KIT_SIZE / texture_kit.getSize().y);
 
     bird.setTexture(texture_bird);
     bird.setOrigin(texture_bird.getSize().x/2,texture_bird.getSize().y/2);
@@ -65,10 +66,10 @@ UI::UI(RenderWindow &window) : rect(0, 0, window.getSize().x * 1000 / window.get
     count_birds.setColor(Color(255, 254, 210));
     count_birds.setStyle(Text::Regular);
 
-    count_fuel.setFont(Fothers);
-    count_fuel.setCharacterSize(55);
-    count_fuel.setColor(Color(255, 254, 210));
-    count_fuel.setStyle(Text::Regular);
+    count_rocketkit.setFont(Fothers);
+    count_rocketkit.setCharacterSize(55);
+    count_rocketkit.setColor(Color(255, 254, 210));
+    count_rocketkit.setStyle(Text::Regular);
 
    RectangleShape rectangle;
    RectangleShape rectangle_in;
@@ -84,7 +85,7 @@ void UI::update(float deltaTime) {
     game_over.setString("GAME OVER");
     hp.setString("HP: " + std::to_string(scene->get_hp()));
     count_birds.setString("x "+std::to_string(scene->getBirds()));
-    count_fuel.setString("x "+std::to_string(scene->getFuel()));
+    count_rocketkit.setString("x "+std::to_string(scene->getRocketKits()));
 
     char str[32];
     sprintf(str,"%.1f",scene->get_time());
@@ -124,10 +125,10 @@ void UI::update(float deltaTime) {
                       rect.height / 2 - new_record.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height);
 
     count_birds.setPosition(rect.width/2-texture_bird.getSize().x/3,rect.height/14-texture_bird.getSize().y/4);
-    count_fuel.setPosition(13*rect.width/15+UI_BIRD_SIZE,(UI_BAR_HEIGHT-1)*rect.height/UI_BAR_HEIGHT+count_fuel.getLocalBounds().height/2);
+    count_rocketkit.setPosition(13*rect.width/15+UI_BIRD_SIZE,(UI_BAR_HEIGHT-1)*rect.height/UI_BAR_HEIGHT+count_rocketkit.getLocalBounds().height/2);
 
     sprite.setPosition(rect.width/15,14*rect.height/15);
-    kit.setPosition(13*rect.width/15,14*rect.height/15);
+    rocketKit.setPosition(13*rect.width/15,14*rect.height/15);
     bird.setPosition(rect.width/2-5*texture_bird.getSize().x/8,rect.height/14);
 
    if(scene->get_time()-scene->getlastBirdTime()>0 && scene->get_time()-scene->getlastBirdTime()<UI_BIRD_MAX_TIME){
@@ -137,6 +138,12 @@ void UI::update(float deltaTime) {
        bird.setScale(birdScale);
    }
 
+ if(scene->get_time()-scene->getlastRocketKitTime()>0 && scene->get_time()-scene->getlastRocketKitTime()<UI_BIRD_MAX_TIME){
+     float fuel_scale_scalar=UI_BIRD_MAX_SCALE-(UI_BIRD_MAX_SCALE-1)*(scene->get_time()-scene->getlastRocketKitTime())/UI_BIRD_MAX_TIME;
+     rocketKit.setScale(fuel_scale_scalar*kitScale.x,fuel_scale_scalar*kitScale.y);
+ }else{
+     rocketKit.setScale(kitScale);
+ }
 
 }
 
@@ -161,16 +168,16 @@ void UI::render(sf::RenderWindow &window) {
     } else {
        // window.draw(hp);
        // window.draw(time);
-        window.draw(bar);
+        window.draw(bar);//Down bar
        // window.draw(cur_score);
-       window.draw(bird);
-       window.draw(count_birds);
-       window.draw(rectangle);
-       window.draw(rectangle_in);
-       window.draw(count_fuel);
+       window.draw(bird);//SBIS BIRD
+       window.draw(count_birds);//SBIS BIRDS-coutt
+       window.draw(rectangle);//FUEL
+       window.draw(rectangle_in);//FUEL
+      if(scene->getRocketKits()>0) window.draw(count_rocketkit);//Count kits
 
         if(scene->isRocket()){
-            window.draw(kit);
+            window.draw(rocketKit);
         }
         sprite.setPosition(rect.width/15,14*rect.height/15);
         window.draw(sprite);

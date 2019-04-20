@@ -21,11 +21,16 @@ class Scene {
 
     int birds;
     int record;
+    int rocketKits=0;
 
     Clock time;
     float finalTime;
     float lastBirdAddTime;
+
     bool isStarted;
+
+
+    float lastRocketKitAddTime;
 
 public:
     static Scene* instance;
@@ -44,7 +49,9 @@ public:
     void setPlaneAngle(float angle);
 
     float getlastBirdTime();
+    float getlastRocketKitTime();
     void addBirds(int value);
+
     int getBirds();
 
     int get_score();
@@ -56,5 +63,6 @@ public:
     void set_record(int value);
     bool isRocket();
     float get_gas();
-    int getFuel();
+    int getRocketKits();
+    void addRocketKit(int value);
 };

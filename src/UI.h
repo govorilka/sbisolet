@@ -4,11 +4,11 @@
 class UI {
     Sprite sprite;//hp
     Texture texture;//hp
-    Sprite kit;
+    Sprite rocketKit;
     Texture texture_kit;
     Sprite bird;
     Texture texture_bird;
-    Vector2f birdScale;
+    Vector2f birdScale,kitScale;
 private:
     FloatRect rect;
 
@@ -20,7 +20,7 @@ private:
     Text best_score;
     Text new_record;
     Text count_birds;
-    Text count_fuel;
+    Text count_rocketkit;
     Font Fothers;
 
 public:

@@ -29,10 +29,20 @@ int main()
                 if(event.key.code == Keyboard::B){
                     Bonuses::instance->createBonus();
                 }
+
                 if(event.key.code == Keyboard::S) {
                     scene.start();
                 }
-            }
+
+
+                if(event.key.code == Keyboard::P){
+                    Scene::instance->addBirds(1);
+                }
+                if(event.key.code==Keyboard::K){
+                    Scene::instance->addRocketKit(1);
+                }
+            }   
+
         }
         deltaTime = clock.restart();
         scene.update(deltaTime.asSeconds());

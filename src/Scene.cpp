@@ -104,6 +104,10 @@ void Scene::addBirds(int value) {
     lastBirdAddTime = get_time();
 }
 
+void Scene::addRocketKit(int value){
+    rocketKits+=value;
+    lastRocketKitAddTime=get_time();
+}
 
 int Scene::getFinalScore() {
     return birds * BIRD_COST + (int)(finalTime * SECOND_COST);
@@ -118,15 +122,19 @@ int Scene::getBirds() {
 }
 
 bool Scene::isRocket(){
-    return true;
+    return (getRocketKits()>0);
 }
 
 float Scene::get_gas(){
     return plane.getFuel() / MAX_FUEL;
 }
 
-int Scene::getFuel() {
-    return 5;
+int Scene::getRocketKits() {
+    return rocketKits;
+}
+
+float Scene::getlastRocketKitTime() {
+    return lastRocketKitAddTime;
 }
 
 void Scene::start() {

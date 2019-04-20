@@ -55,12 +55,13 @@ static const float SEGMENT_MIN_HEIGHT = 0.2;
 static const float BONUS_SIZE = 15;
 
 //UI
-static const float UI_BAR_HEIGHT=8;
+static const float UI_BAR_HEIGHT=7;//low=high))))
 static const float UI_GAS_WIDTH=400;
 static const float UI_GAS_HEIGHT=50;
 
-static const float UI_BIRD_MAX_TIME=1;
-static const float UI_BIRD_MAX_SCALE=1.1;
+static const float UI_BIRD_MAX_TIME=0.25;
+static const float UI_BIRD_MAX_SCALE=1.25;
+static const float UI_KIT_SIZE=100;
 
 static const float UI_BIRD_SIZE = 100;
 #define UI_BAR_COLOR Color(0,0,0,80)
