@@ -8,7 +8,8 @@ Plane::Plane()
      hp(INIT_PLANE_HP),
      fuel(MAX_FUEL),
      godModeTimeLeft(0),
-     lostControlTime(0)
+     lostControlTime(0),
+     isKeyboard(true)
     {
     instance = this;
     if(!texture.loadFromFile("plane.png")) {
@@ -30,14 +31,23 @@ void Plane::update(float deltaTime) {
     godModeTimeLeft -= deltaTime;
     lostControlTime -= deltaTime;
     float fuel_dec = 0;
-    if (Keyboard::isKeyPressed(Keyboard::Up) && fuel > 0 && getPosition().y < MAX_PLANE_HEIGHT - 2.5) {
-        fuel_dec = FUEL_DEC_UP;
-        setAngle(45);
-    } else if (Keyboard::isKeyPressed(Keyboard::Down) || fuel == 0) {
-        setAngle(-45);
-    } else if (fuel > 0) {
-        fuel_dec = FUEL_DEC;
-        setAngle(0);
+    if (isKeyboard) {
+        if (Keyboard::isKeyPressed(Keyboard::Up) && fuel > 0 && getPosition().y < MAX_PLANE_HEIGHT - 2.5) {
+            fuel_dec = FUEL_DEC_UP;
+            setAngle(45);
+        } else if (Keyboard::isKeyPressed(Keyboard::Down) || fuel == 0) {
+            setAngle(-45);
+        } else if (fuel > 0) {
+            fuel_dec = FUEL_DEC;
+            setAngle(0);
+        }
+    } else {
+        if (angle > 0) {
+            fuel_dec = FUEL_DEC_UP;
+        } else if (std::abs(angle) < ANGLE_DELTA) {
+            fuel_dec = FUEL_DEC;
+            angle = 0;
+        }
     }
     if (hp == 1) {
         fuel_dec *= ONE_HP_MUL;
@@ -99,6 +109,14 @@ const FloatRect Plane::getGlobalBounds() {
 }
 
 void Plane::setAngle(float value) {
+    if (!isKeyboard) {
+        if (fuel > 0 && getPosition().y < MAX_PLANE_HEIGHT - 2.5 && value > 0) {
+            value = 0;
+        }
+        if (fuel == 0) {
+            value = -45;
+        }
+    }
     angle = value;
 }
 
@@ -112,5 +130,9 @@ float Plane::getFuel() {
 
 void Plane::addFuel(float value) {
     fuel += value;
+}
+
+void Plane::setControlMode(bool isKeyboardMode) {
+    isKeyboard = isKeyboardMode;
 }
 

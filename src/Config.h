@@ -60,6 +60,7 @@ static const int SECOND_COST = 10;
 
 //OTHER
 static const float DELTA_TIME = 0.5;
+static const float ANGLE_DELTA = 3;
 
 //Enemies
 static const float ENEMIES_KAMIKAZE_SIZE = 20;

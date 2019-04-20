@@ -155,3 +155,11 @@ void Scene::setPlaneAngle(float angle) {
     plane.setAngle(angle);
 }
 
+void Scene::setArduinoMode() {
+    plane.setControlMode(false);
+}
+
+void Scene::setKeyboardMode() {
+    plane.setControlMode(true);
+}
+

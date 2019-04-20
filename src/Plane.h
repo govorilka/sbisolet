@@ -13,6 +13,8 @@ class Plane {
     float fuel;
     float godModeTimeLeft;
 
+    bool isKeyboard;
+
 public:
     static Plane* instance;
 
@@ -32,6 +34,7 @@ public:
     const FloatRect getGlobalBounds();
 
     void setAngle(float value);
+    void setControlMode(bool isKeyboardMode);
 
     void initScene();
     void update(float deltaTime);

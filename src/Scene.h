@@ -53,6 +53,8 @@ public:
     void start();
 
     void setPlaneAngle(float angle);
+    void setArduinoMode();
+    void setKeyboardMode();
 
 
     float getlastBirdTime();
