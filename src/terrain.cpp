@@ -3,12 +3,12 @@
 #include "Camera.h"
 #include "Scene.h"
 #include "Enemies/Enemies.h"
+#include "Utils.h"
 
 Terrain::Terrain() {
 }
 
-void Terrain::initScene(){
-    srand(time(0));
+void Terrain::initScene() {
     vertexes.clear();
     seg_list.clear();
     vertexes.setPrimitiveType(Quads);
@@ -44,12 +44,12 @@ void Terrain::add_new_segment() {
     }else{
         Vector2f last_point = seg_list.back().second;
         new_y = last_point.y;
-        if((rand()%2 && new_y < -rect.height*TERRAIN_SEGMENT_MAX_HEIGHT) || ( new_y < -rect.height*TERRAIN_SEGMENT_MIN_HEIGHT))
+        if((Utils::getRandomNumber(0, 1) && new_y < -rect.height*TERRAIN_SEGMENT_MAX_HEIGHT) || ( new_y < -rect.height*TERRAIN_SEGMENT_MIN_HEIGHT))
         {
-            new_y += (float)rand()/RAND_MAX*shift;
+            new_y += (float)(Utils::getRandomNumber(0, 10000)) / 10000 *shift;
         }else
         {
-            new_y -= (float)rand()/RAND_MAX*shift;
+            new_y -= (float)(Utils::getRandomNumber(0, 10000)) / 10000 *shift;
         }
         segment = Segment(last_point, Vector2f(last_point.x + x_size,new_y));
     }

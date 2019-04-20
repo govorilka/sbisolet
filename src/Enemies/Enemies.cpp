@@ -5,13 +5,17 @@
 #include "Kamikaze.h"
 #include "Cloud.h"
 #include <cfloat>
+#include <Utils.h>
 #include "Scene.h"
 
 Enemies* Enemies::instance = nullptr;
 Enemies::Enemies() = default;
 
 void Enemies::initScene() {
-
+    enemies.clear();
+    lastBalloonTime = ENEMIES_BALLOON_RELOAD_TIME + (float)(Utils::getRandomNumber(0, 500)) / 100;
+    lastKamikazeTime = ENEMIES_KAMIKAZE_RELOAD_TIME + (float)(Utils::getRandomNumber(0, 100)) / 100;
+    lastCloudTime = ENEMIES_CLOUD_RELOAD_TIME + (float)(Utils::getRandomNumber(0, 200)) / 100;
 }
 
 void Enemies::update(float deltaTime) {
@@ -37,15 +41,15 @@ void Enemies::render(RenderWindow &window) {
 
 void Enemies::onTerrainSegmentCreated(const Segment &segment) {
     if (lastKamikazeTime < 0) {
-        enemies.push_back(new Kamikaze(segment.second.x, ENEMIES_KAMIKAZE_MIN_HEIGHT + rand() % 60));
-        lastKamikazeTime = ENEMIES_KAMIKAZE_RELOAD_TIME + (float)(rand() % 1000) / 100;
+        enemies.push_back(new Kamikaze(segment.second.x, ENEMIES_KAMIKAZE_MIN_HEIGHT + Utils::getRandomNumber(0, 60)));
+        lastKamikazeTime = ENEMIES_KAMIKAZE_RELOAD_TIME + (float)(Utils::getRandomNumber(0, 1000)) / 100;
     }
     if (lastBalloonTime < 0) {
-        enemies.push_back(new Balloon(segment.second.x, ENEMIES_BALLOON_MIN_HEIGHT + rand() % 20));
-        lastBalloonTime = ENEMIES_BALLOON_RELOAD_TIME + (float)(rand() % 1000) / 100;
+        enemies.push_back(new Balloon(segment.second.x, ENEMIES_BALLOON_MIN_HEIGHT + Utils::getRandomNumber(0, 20)));
+        lastBalloonTime = ENEMIES_BALLOON_RELOAD_TIME + (float)(Utils::getRandomNumber(0, 500)) / 100;
     }
     if (lastCloudTime < 0) {
-        enemies.push_back(new Cloud(segment.second.x, ENEMIES_CLOUD_MIN_HEIGHT + rand() % 20));
-        lastCloudTime = ENEMIES_CLOUD_RELOAD_TIME + (float)(rand() % 1000) / 100;
+        enemies.push_back(new Cloud(segment.second.x, ENEMIES_CLOUD_MIN_HEIGHT + Utils::getRandomNumber(0, 20)));
+        lastCloudTime = ENEMIES_CLOUD_RELOAD_TIME + (float)(Utils::getRandomNumber(0, 2000)) / 100;
     }
 }

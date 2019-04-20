@@ -3,6 +3,7 @@
 #include "Bonuses.h"
 #include "Scene.h"
 #include "Segment.h"
+#include "Utils.h"
 #include <cstdlib>
 
 Bonuses* Bonuses::instance = nullptr;
@@ -15,9 +16,7 @@ Bonuses::Bonuses() {
 
 }
 void Bonuses::initScene() {
-   /* for(int i=0;i<3;i++) {
-        createBonus();
-    }*/
+    bonuses.clear();
 }
 
 void Bonuses::update(float deltaTime) {
@@ -29,7 +28,7 @@ void Bonuses::update(float deltaTime) {
 }
 
 void Bonuses::render(RenderWindow &window) {
-    for ( const auto& bonus: bonuses)
+    for (const auto& bonus: bonuses)
     {
         window.draw(bonus.sprite);
     }
@@ -37,7 +36,7 @@ void Bonuses::render(RenderWindow &window) {
 }
 
 void Bonuses::onTerrainSegmentCreated(const Segment &segment){
-    if (rand() % 5 == 0) {
+    if (Utils::getRandomNumber(0, 5) == 0) {
         createBonus(segment);
     }
 }
@@ -62,7 +61,7 @@ void Bonuses::createBonus(const Segment &segment) {
         bonus.sprite.setPosition(segment.first.x,segment.first.y + 6);
     }
     else{
-        bonus.sprite.setPosition(segment.first.x,60 + (rand()%30));
+        bonus.sprite.setPosition(segment.first.x,60 + Utils::getRandomNumber(0, 30));
     }
 
    // bonus.sprite.setPosition(Plane::instance->getPosition().x + 30, Plane::instance->getPosition().y);
@@ -71,7 +70,7 @@ void Bonuses::createBonus(const Segment &segment) {
 
 Bonuses::BonusType Bonuses::getRandomBonusType() {
     int x;
-    x = 1 + rand() % 5;
+    x = Utils::getRandomNumber(1, 5);
     if (x == 1)
         return BonusType::FUEL;
     if (x == 2)

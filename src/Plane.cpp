@@ -28,8 +28,8 @@ void Plane::initScene() {
 }
 
 void Plane::update(float deltaTime) {
-    godModeTimeLeft -= deltaTime;
-    lostControlTime -= deltaTime;
+    if (godModeTimeLeft > 0) godModeTimeLeft -= deltaTime;
+    if (lostControlTime > 0) lostControlTime -= deltaTime;
     float fuel_dec = 0;
     if (isKeyboard) {
         if (Keyboard::isKeyPressed(Keyboard::Up) && fuel > 0 && getPosition().y < MAX_PLANE_HEIGHT - 2.5) {
@@ -70,6 +70,7 @@ void Plane::update(float deltaTime) {
 
 void Plane::render(RenderWindow& window) {
     window.draw(sprite);
+
 }
 
 const Vector2f& Plane::getPosition() {
