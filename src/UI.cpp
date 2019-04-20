@@ -39,12 +39,12 @@ UI::UI(RenderWindow &window) : rect(0, 0, window.getSize().x * 1000 / window.get
     score.setColor(Color::Red);//set it later
     score.setStyle(Text::Bold);
 
-    /*
-    game_over.setFont(font);
-    game_over.setCharacterSize(90);
-    game_over.setColor(Color::Red);
-    game_over.setStyle(Text::Bold);
-    */
+
+    its_fuel.setFont(Fothers);
+    its_fuel.setCharacterSize(40);
+    its_fuel.setColor(UI_FUEL_TEXT_COLOR);
+    its_fuel.setStyle(Text::Bold);
+
     best_score.setFont(font);
     best_score.setCharacterSize(50);
     best_score.setColor(Color::Red);//set it later
@@ -79,25 +79,25 @@ void UI::update(float deltaTime) {
     game_over.setString("GAME OVER");
     count_birds.setString("x "+std::to_string(scene->getBirds()));
     count_rocketkit.setString("x "+std::to_string(scene->getRocketKits()));
-
+    its_fuel.setString("FUEL");
     best_score.setString("Best result: " + std::to_string(scene->get_record()));
 
     //gas
     rectangle.setSize(sf::Vector2f(UI_GAS_WIDTH*1.f, UI_GAS_HEIGHT*1.f));
-    rectangle.setFillColor(Color(0, 0, 255));
+    rectangle.setFillColor(UI_FUEL_BG_COLOR);
     rectangle.setPosition(rect.width/2-rectangle.getSize().x/2,(UI_BAR_HEIGHT-0.5)*rect.height/UI_BAR_HEIGHT-rectangle.getSize().y/2);
-    rectangle.setOutlineThickness(1.f);
+    rectangle.setOutlineThickness(UI_FUEL_OUTLINE_THICKNESS*1.f);
     rectangle.setOutlineColor(Color(0,0,0));
     rectangle_in.setSize(Vector2f((scene->get_gas())*400.f,50.f));
-    rectangle_in.setFillColor(Color(255,137,47));
+    rectangle_in.setFillColor(UI_FUEL_COLOR);
     rectangle_in.setPosition(rect.width/2-rectangle.getSize().x/2,(UI_BAR_HEIGHT-0.5)*rect.height/UI_BAR_HEIGHT-rectangle.getSize().y/2);
 
+    its_fuel.setPosition(rect.width/2 -its_fuel.getLocalBounds().width/2,(UI_BAR_HEIGHT-0.5)*rect.height/UI_BAR_HEIGHT-rectangle.getSize().y/2);
 
     bar.setSize(Vector2f(rect.width,rect.height/UI_BAR_HEIGHT));
     bar.setFillColor(UI_BAR_COLOR);
     bar.setPosition(0,(UI_BAR_HEIGHT-1)*rect.height/UI_BAR_HEIGHT);
     //SETTING POSITIONS
-
     game_over.setPosition(rect.width / 2 - game_over.getLocalBounds().width / 2,
                           rect.height / 2 - 1.5 * game_over.getLocalBounds().height);
     score.setPosition(rect.width / 2 - score.getLocalBounds().width / 2,
@@ -129,7 +129,10 @@ void UI::update(float deltaTime) {
  }else{
      rocketKit.setScale(kitScale);
  }
-
+    if(Scene::instance->isGameOver() && Scene::instance->getFinalScore()>Scene::instance->get_record()){
+        Sounds::instance->play_new_record();
+        scene->set_record(scene->getFinalScore());
+    }
 }
 
 void UI::render(sf::RenderWindow &window) {
@@ -144,12 +147,14 @@ void UI::render(sf::RenderWindow &window) {
             window.draw(score);
             window.draw(best_score);
         } else {
-            scene->set_record(scene->getFinalScore());
+
             new_record.setString("New world record: " + std::to_string(scene->get_record()));
             new_record.setPosition(rect.width / 2 - new_record.getLocalBounds().width / 2,
                                    rect.height / 2 - new_record.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height);
             window.draw(new_record);
             window.draw(game_over);
+
+
         }
 
     } else {
@@ -158,6 +163,7 @@ void UI::render(sf::RenderWindow &window) {
        window.draw(count_birds);//SBIS BIRDS-coutt
        window.draw(rectangle);//FUEL
        window.draw(rectangle_in);//FUEL
+       window.draw(its_fuel);//FUEL
         if(scene->isRocket()){
             window.draw(rocketKit);
             window.draw(count_rocketkit);//Count kits

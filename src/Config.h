@@ -64,9 +64,12 @@ static const float UI_BIRD_SIZE = 150;
 static const float UI_ROCKETKIT_WIDTH=93;//from 0 to 100(15+ required)
 static const float UI_HEART_DIST=30;
 static const float UI_HEART_WIDTH=100;
-
-
+static const float UI_FUEL_OUTLINE_THICKNESS=1;
+//UI COLORS
 #define UI_BAR_COLOR Color(0,0,0,80)
+#define UI_FUEL_COLOR Color(255,137,47)
+#define UI_FUEL_BG_COLOR Color(0, 0, 255,0)
+#define UI_FUEL_TEXT_COLOR Color(0,0,0)
 
 //FINAL SCORE
 static const int BIRD_COST = 100;

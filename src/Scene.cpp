@@ -18,6 +18,7 @@ Scene::Scene(RenderWindow &window)
         throw std::runtime_error("Failed to load effects.png");
     }
     instance = this;
+
 }
 
 Texture& Scene::getEffectsTexture() {
@@ -98,10 +99,6 @@ int Scene::get_hp() {
 
 float Scene::get_time() {
     return time.getElapsedTime().asSeconds();//seconds
-}
-
-int Scene::get_score() {
-    return birds;
 }
 
 

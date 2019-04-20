@@ -17,8 +17,7 @@ Bonuses::Bonuses()
     }
 }
 void Bonuses::initScene() {
-
-    bonuses.clear();
+   bonuses.clear();
 }
 
 void Bonuses::update(float deltaTime) {
@@ -78,7 +77,6 @@ void Bonuses::createBonus(const Segment &segment) {
    // bonus.sprite.setPosition(Plane::instance->getPosition().x + 30, Plane::instance->getPosition().y);
     bonuses.push_back(bonus);
 }
-
 Bonuses::BonusType Bonuses::getRandomBonusType() {
     int x;
     x = Utils::getRandomNumber(1, 5);

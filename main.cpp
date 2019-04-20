@@ -34,13 +34,16 @@ int main()
                     scene.start();
                 }
 
-
                 if(event.key.code == Keyboard::P){
                     Scene::instance->addBirds(1);
                 }
                 if(event.key.code==Keyboard::K){
                     Scene::instance->addRocketKit(1);
                 }
+                if(event.key.code==Keyboard::F){
+                    Sounds::instance->play_big_boom();
+                }
+
             }   
 
         }

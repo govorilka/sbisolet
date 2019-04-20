@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Bonuses.h"
 #include "SkyEffect.h"
+#include "Sounds.h"
 #include "Enemies/Kamikaze.h"
 #include "Enemies/Balloon.h"
 
@@ -21,6 +22,7 @@ class Scene {
 
     Enemies enemies;
     Bonuses bonuses;
+    Sounds sounds;
 
     Texture effectsTexture;
 
@@ -40,7 +42,6 @@ class Scene {
 
 public:
     static Scene* instance;
-
     explicit Scene(RenderWindow& window);
     
     void initScene();
@@ -68,11 +69,9 @@ public:
 
     Texture& getEffectsTexture();
 
-
     void give_Rocket();
 
     SkyEffect& getSkyEffect();
-
 
     int getFinalScore();
     int get_hp();
