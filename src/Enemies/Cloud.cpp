@@ -17,6 +17,7 @@ Cloud::Cloud(float xPos,float yPos) {
     lightning.setTextureRect(IntRect(0,256*3,256,256));
     lightning.setOrigin(128, 128);
     lightning.setScale(ENEMIES_LIGHTNING_H_SIZE / 256, -ENEMIES_LIGHTNING_V_SIZE / 256);
+    isPushed=false;
     damaged = false;
     last_shot_time = FLT_MAX;
     isAlive = true;
@@ -48,10 +49,11 @@ bool Cloud::isReadyToShoot(){
 
 void Cloud::update(float deltaTime) {
 
-    if (cloud.getGlobalBounds().intersects(Plane::instance->getGlobalBounds()) && Plane::instance->lostControlTime<=0) {
+    if (cloud.getGlobalBounds().intersects(Plane::instance->getGlobalBounds()) && Plane::instance->lostControlTime<=0 && !isPushed) {
 
         Plane::instance->lostControlTime = EFFECT_LOST_CONTROL_DURATION;
-
+        isPushed=true;
+        
     }
 
     if(isReadyToShoot()){

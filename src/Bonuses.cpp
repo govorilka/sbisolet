@@ -65,8 +65,8 @@ void Bonuses::createBonus(const Segment &segment) {
         bonus.sprite.setScale(BONUS_LIFE_SIZE / 256, -BONUS_LIFE_SIZE / 256);
     if (bonus.type == Bonuses::BonusType::CLOUD)
         bonus.sprite.setScale(BONUS_CLOUD_SIZE / 256, -BONUS_CLOUD_SIZE / 256);
-    if (bonus.type == Bonuses::BonusType::ROCKET)
-        bonus.sprite.setScale(BONUS_ROCKET_SIZE / 256, -BONUS_ROCKET_SIZE / 256);
+   // if (bonus.type == Bonuses::BonusType::ROCKET)
+  //      bonus.sprite.setScale(BONUS_ROCKET_SIZE / 256, -BONUS_ROCKET_SIZE / 256);
     if ((bonus.type != Bonuses::BonusType::BIRD)&&(bonus.type != Bonuses::BonusType::CLOUD)){
         bonus.sprite.setPosition(segment.first.x,segment.first.y + 6);
     }
@@ -79,7 +79,7 @@ void Bonuses::createBonus(const Segment &segment) {
 }
 Bonuses::BonusType Bonuses::getRandomBonusType() {
     int x;
-    x = Utils::getRandomNumber(1, 5);
+    x = Utils::getRandomNumber(1, 4);
     if (x == 1)
         return BonusType::FUEL;
     if (x == 2)
@@ -88,8 +88,8 @@ Bonuses::BonusType Bonuses::getRandomBonusType() {
         return BonusType::LIFE;
     if (x == 4)
         return BonusType::CLOUD;
-    if (x == 5)
-        return BonusType::ROCKET;
+   // if (x == 5)
+    //    return BonusType::ROCKET;
     return BonusType::FUEL;
 }
 
@@ -115,14 +115,22 @@ Sprite Bonuses::getBonusSprite(BonusType type) {
 }
 
 void Bonuses::applyBonus(const Bonus &bonus){
-    if (bonus.type == Bonuses::BonusType::FUEL)
+    if (bonus.type == Bonuses::BonusType::FUEL){
         Plane::instance->addFuel(BONUS_FUEL_ADD);
-    if (bonus.type == Bonuses::BonusType::BIRD)
+
+        }
+    if (bonus.type == Bonuses::BonusType::BIRD) {
         Scene::instance->addBirds(BONUS_TAKE_BIRD);
-    if (bonus.type == Bonuses::BonusType::LIFE)
+    }
+    if (bonus.type == Bonuses::BonusType::LIFE) {
         Plane::instance->addHP(BONUS_HEALING);
-    if (bonus.type == Bonuses::BonusType::CLOUD)
+    }
+    if (bonus.type == Bonuses::BonusType::CLOUD) {
         Plane::instance->addGodModeTime(BONUS_GODMODETIME);
-    if (bonus.type == Bonuses::BonusType::ROCKET)
+        Sounds::instance->play_armor();
+    }
+    if (bonus.type == Bonuses::BonusType::ROCKET) {
         Scene::instance->addRocketKit(1);
+        Sounds::instance->play_accelerate();
+    }
 }

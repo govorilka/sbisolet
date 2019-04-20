@@ -15,10 +15,14 @@ class Sounds {
     SoundBuffer buffer_thunder;
     SoundBuffer buffer_new_record;
     SoundBuffer buffer_big_boom;
+    SoundBuffer buffer_armor;
+    SoundBuffer buffer_accelerate;
     Sound uhh;
     Sound thunder;
     Sound new_record;
     Sound boom;
+    Sound armor;
+    Sound accelerate;
 public:
     static Sounds* instance;
     explicit Sounds();
@@ -28,6 +32,8 @@ public:
     void play_thunder();
     void play_new_record();
     void play_big_boom();
+    void play_armor();
+    void play_accelerate();
 };
 
 

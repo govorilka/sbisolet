@@ -6,6 +6,7 @@ class Cloud : public GameObject {
     Sprite cloud;
 
     Sprite lightning;
+    bool isPushed;
     bool damaged;
     bool isAlive;
     float last_shot_time;

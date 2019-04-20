@@ -6,12 +6,11 @@ static const float CAMERA_FOLLOW_DISTANCE = 10;
 
 //PLANE
 static const float PLANE_H_SPEED = 30;
-static const float PLANE_V_SPEED = 20;
+static const float PLANE_V_SPEED =35;
 
 static const int PLANE_INIT_HP = 3;
 
-
-static const float PLANE_MAX_HEIGHT = 75;
+static const float PLANE_MAX_HEIGHT = 90;
 
 static const float PLANE_MIN_HEIGHT = 0;
 
@@ -38,7 +37,7 @@ static const float PLANE_FUEL_COOLDOWN = 0.2;
 //Terrain
 static const float TERRAIN_SEGMENT_WIDTH = 0.1;
 static const float TERRAIN_SEGMENT_MAX_SHIFT = 0.05;
-static const float TERRAIN_SEGMENT_MAX_HEIGHT = 0.4;
+static const float TERRAIN_SEGMENT_MAX_HEIGHT = 0.3;
 static const float TERRAIN_SEGMENT_MIN_HEIGHT = 0.2;
 
 
@@ -53,10 +52,11 @@ static const float BONUS_ROCKET_SIZE = 10;
 static const float BONUS_CLOUD_SIZE = 15;
 static const float BONUS_FUEL_SIZE = 10;
 
-static const int BONUS_HEALING = 1;
-static const int BONUS_TAKE_BIRD = 1;
-static const int BONUS_FUEL_ADD = 100;
-static const int BONUS_GODMODETIME = 50;
+static const float BONUS_HEALING = 1;
+static const float BONUS_TAKE_BIRD = 1;
+static const float BONUS_FUEL_ADD = 100;
+static const float BONUS_GODMODETIME = 6;
+static const float BONUS_MAX_GODMODETIME=10;
 
 static const float GODMODE_SIZE = 20;
 
@@ -94,7 +94,7 @@ static const float ANGLE_DELTA = 3;
 static const float ENEMIES_KAMIKAZE_SIZE = 20;
 
 static const float ENEMIES_KAMIKAZE_H_SPEED = 12.5;
-static const float ENEMIES_KAMIKAZE_V_SPEED = 0;
+static const float ENEMIES_KAMIKAZE_V_SPEED = 10;
 
 static const int ENEMIES_KAMIKAZE_RELOAD_TIME = 7;
 static const int ENEMIES_KAMIKAZE_MAX_RELOAD_EXTRA_TIME = 10;
@@ -122,6 +122,8 @@ static const float ENEMIES_CLOUD_V_SIZE = 20;
 static const float ENEMIES_LIGHTNING_H_SIZE = 7;
 static const float ENEMIES_LIGHTNING_V_SIZE = 70;
 
+static const float ENEMIES_LIGHTNING_VELOCITY=13;
+
 static const int ENEMIES_CLOUD_RELOAD_TIME=5;
 static const int ENEMIES_CLOUD_MAX_RELOAD_EXTRA_TIME = 3;
 
@@ -129,7 +131,7 @@ static const int ENEMIES_CLOUD_MIN_HEIGHT = 75;
 static const int ENEMIES_CLOUD_MAX_EXTRA_HEIGHT = 20;
 
 static const float ENEMIES_LIGHTNING_DURATION = 0.3;
-static const float ENEMIES_LIGHTNING_PERIOD = 2.3;
+static const float ENEMIES_LIGHTNING_PERIOD = 1.8;
 static const int ENEMIES_CLOUD_DAMAGE = 1;
 static const int ENEMIES_LIGHTNING_DAMAGE = 1;
 

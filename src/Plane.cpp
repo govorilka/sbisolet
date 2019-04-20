@@ -85,7 +85,7 @@ void Plane::update(float deltaTime) {
     }
 
     if(lostControlTime>0){
-        velocity.y = -PLANE_V_SPEED;
+        velocity.y =  -ENEMIES_LIGHTNING_VELOCITY;
     }
     else if (getCurrentAngle() != 0) {
 
@@ -178,7 +178,7 @@ void Plane::setAngle(float value, bool force) {
 }
 
 void Plane::addGodModeTime(float seconds) {
-    godModeTimeLeft += seconds;
+    godModeTimeLeft = seconds;
 }
 
 

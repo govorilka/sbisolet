@@ -23,6 +23,13 @@ Sounds::Sounds(){
     if(!buffer_big_boom.loadFromFile("big_bada_boom.wav")){
         throw std::runtime_error("Failed to load big_bada_boom.wav");
     }
+    if(!buffer_armor.loadFromFile("armor.wav")){
+        throw std::runtime_error("Failed to load armor.wav");
+    }
+    if(!buffer_accelerate.loadFromFile("accelerate.wav")){
+        throw std::runtime_error("Failed to load accelerate.wav");
+    }
+
     thunder.setBuffer(buffer_thunder);
     thunder.setVolume(5000.f);
     thunder.setPlayingOffset(seconds(4.f));
@@ -35,6 +42,9 @@ Sounds::Sounds(){
 
     boom.setBuffer(buffer_big_boom);
     boom.setVolume(10000.f);
+
+    armor.setBuffer(buffer_armor);
+    accelerate.setBuffer(buffer_accelerate);
 }
 
 
@@ -56,4 +66,11 @@ void Sounds::play_new_record() {
 
 void Sounds::play_big_boom() {
     boom.play();
+}
+
+void Sounds::play_armor() {
+    armor.play();
+}
+void Sounds::play_accelerate() {
+    accelerate.play();
 }
