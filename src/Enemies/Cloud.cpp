@@ -33,6 +33,7 @@ void Cloud::startLightning(){
     if(effect.activeTime > effect.effectDuration)
         Scene::instance->getSkyEffect().startEffect(EFFECT_LIGHTNING_COLOR,EFFECT_LIGHTNING_DURATION);
     last_shot_time = Scene::instance->get_time();
+    Sounds::instance->play_thunder();
     damaged = false;
 }
 

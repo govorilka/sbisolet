@@ -62,14 +62,8 @@ public:
     float getlastBirdTime();
     float getlastRocketKitTime();
     void addBirds(int value);
-
     int getBirds();
-
-    int get_score();
-
     Texture& getEffectsTexture();
-
-    void give_Rocket();
 
     SkyEffect& getSkyEffect();
 

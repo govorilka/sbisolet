@@ -33,7 +33,9 @@ int main()
                 if(event.key.code == Keyboard::S) {
                     scene.start();
                 }
-
+                if(event.key.code==Keyboard::H){
+                    Plane::instance->addHP(1);
+                }
                 if(event.key.code == Keyboard::P){
                     Scene::instance->addBirds(1);
                 }
@@ -41,7 +43,7 @@ int main()
                     Scene::instance->addRocketKit(1);
                 }
                 if(event.key.code==Keyboard::F){
-                    Sounds::instance->play_big_boom();
+                   // Sounds::instance->play_big_boom();
                 }
                 if(event.key.code==Keyboard::I){
                     Plane::instance->addGodModeTime(1);

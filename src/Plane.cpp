@@ -88,6 +88,7 @@ void Plane::update(float deltaTime) {
     }
 
     if (Terrain::instance->isIntersects(getGlobalBoundingCircle())) {
+        if(hp!=0)Sounds::instance->play_big_boom();
         hp = 0;
     }
 
@@ -138,9 +139,9 @@ void Plane::addHP(int value) {
     hp += value;
     if(value<0){
         Scene::instance->getSkyEffect().startEffect(EFFECT_DAMAGE_COLOR,EFFECT_DAMAGE_DURATION);
+        Sounds::instance->play_uhh();
     }
     hp = std::min(hp, PLANE_INIT_HP);
-    Sounds::instance->play_uhh();
 }
 
 int Plane::getHP() {

@@ -124,5 +124,5 @@ void Bonuses::applyBonus(const Bonus &bonus){
     if (bonus.type == Bonuses::BonusType::CLOUD)
         Plane::instance->addGodModeTime(BONUS_GODMODETIME);
     if (bonus.type == Bonuses::BonusType::ROCKET)
-        Scene::instance->give_Rocket();
+        Scene::instance->addRocketKit(1);
 }

@@ -129,6 +129,7 @@ void UI::update(float deltaTime) {
  }else{
      rocketKit.setScale(kitScale);
  }
+
     if(Scene::instance->isGameOver() && Scene::instance->getFinalScore()>Scene::instance->get_record()){
         Sounds::instance->play_new_record();
         scene->set_record(scene->getFinalScore());
