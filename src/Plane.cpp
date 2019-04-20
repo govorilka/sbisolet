@@ -45,6 +45,7 @@ void Plane::initScene() {
     godMode.setOrigin(128,128);
     godMode.setColor(sf::Color(255, 255, 255, 100));
     godMode.setScale(GODMODE_SIZE / 256, -GODMODE_SIZE / 256);
+    godModeTimeLeft = 0;
 }
 
 void Plane::update(float deltaTime) {
