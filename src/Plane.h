@@ -64,6 +64,6 @@ private:
     float calculateRotation();
 
     void updateFuelSprites(float deltaTime);
-
+    void updateSounds();
     Circle getBCircleFromSprite(Sprite sprite);
 };

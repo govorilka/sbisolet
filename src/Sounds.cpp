@@ -29,22 +29,42 @@ Sounds::Sounds(){
     if(!buffer_accelerate.loadFromFile("accelerate.wav")){
         throw std::runtime_error("Failed to load accelerate.wav");
     }
+    if(!buffer_bird.loadFromFile("bird_snd.wav")){
+        throw std::runtime_error("Failed to load bird_snd.wav");
+    }
+    if(!buffer_jjj.loadFromFile("jjj.wav")){
+        throw std::runtime_error("Failed to load jjj.wav");
+    }
+    if(!buffer_hp_fuel.loadFromFile("hp_fuel.wav")){
+        throw std::runtime_error("Failed to load hp_fuel.wav");
+    }
 
     thunder.setBuffer(buffer_thunder);
-    thunder.setVolume(5000.f);
+    thunder.setVolume(80.f);
     thunder.setPlayingOffset(seconds(4.f));
 
     uhh.setBuffer(buffer_uhh);
     uhh.setVolume(10000.f);
 
     new_record.setBuffer(buffer_new_record);
-    new_record.setVolume(4000.f);
+    new_record.setVolume(80.f);
 
     boom.setBuffer(buffer_big_boom);
-    boom.setVolume(10000.f);
+    boom.setVolume(35.f);
 
     armor.setBuffer(buffer_armor);
+    armor.setVolume(60.f);
     accelerate.setBuffer(buffer_accelerate);
+
+    bird.setBuffer(buffer_bird);
+    bird.setVolume(60.f);
+
+    jjj.setBuffer(buffer_jjj);
+    jjj.setVolume(65.f);
+    jjj.setLoop(true);
+
+    hp_fuel.setBuffer(buffer_hp_fuel);
+    hp_fuel.setVolume(60.f);
 }
 
 
@@ -73,4 +93,19 @@ void Sounds::play_armor() {
 }
 void Sounds::play_accelerate() {
     accelerate.play();
+}
+void Sounds::play_bird() {
+    bird.play();
+}
+void Sounds::play_jjj(){
+    jjj.play();
+}
+void Sounds::stop_jjj(){
+    jjj.stop();
+}
+void Sounds::set_jjj_volume(int value) {
+    jjj.setVolume(value*1.f);
+}
+void Sounds::play_hp_fuel() {
+    hp_fuel.play();
 }

@@ -17,6 +17,12 @@ class Sounds {
     SoundBuffer buffer_big_boom;
     SoundBuffer buffer_armor;
     SoundBuffer buffer_accelerate;
+    SoundBuffer buffer_bird;
+    SoundBuffer buffer_jjj;
+    SoundBuffer buffer_hp_fuel;
+    Sound hp_fuel;
+    Sound jjj;
+    Sound bird;
     Sound uhh;
     Sound thunder;
     Sound new_record;
@@ -34,6 +40,11 @@ public:
     void play_big_boom();
     void play_armor();
     void play_accelerate();
+    void play_bird();
+    void stop_jjj();
+    void play_jjj();
+    void play_hp_fuel();
+    void set_jjj_volume(int value);
 };
 
 

@@ -126,13 +126,15 @@ Sprite Bonuses::getBonusSprite(BonusType type) {
 void Bonuses::applyBonus(const Bonus &bonus){
     if (bonus.type == Bonuses::BonusType::FUEL){
         Plane::instance->addFuel(BONUS_FUEL_ADD);
-
+        Sounds::instance->play_hp_fuel();
         }
     if (bonus.type == Bonuses::BonusType::BIRD) {
         Scene::instance->addBirds(BONUS_TAKE_BIRD);
+        Sounds::instance->play_bird();
     }
     if (bonus.type == Bonuses::BonusType::LIFE) {
         Plane::instance->addHP(BONUS_HEALING);
+        Sounds::instance->play_hp_fuel();
     }
     if (bonus.type == Bonuses::BonusType::CLOUD) {
         Plane::instance->addGodModeTime(BONUS_GODMODETIME);

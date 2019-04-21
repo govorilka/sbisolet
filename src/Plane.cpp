@@ -31,6 +31,7 @@ Plane::Plane()
 void Plane::initScene() {
 
     fuelSprites.clear();
+    Sounds::instance->play_jjj();
 
     lostControlTime=0;
     angle=0;
@@ -62,11 +63,15 @@ void Plane::update(float deltaTime) {
         }
         else if (Keyboard::isKeyPressed(Keyboard::Up) && fuel > 0 && getPosition().y < PLANE_MAX_HEIGHT - 2.5) {
             fuel_dec = PLANE_FUEL_DEC_UP;
+            //Sounds::instance->play_jjj();
+            Sounds::instance->set_jjj_volume(100);
             setAngle(45);
         } else if (Keyboard::isKeyPressed(Keyboard::Down) || fuel == 0) {
             setAngle(-45);
+            Sounds::instance->set_jjj_volume(40);
         } else if (fuel > 0) {
             fuel_dec = PLANE_FUEL_DEC;
+            Sounds::instance->set_jjj_volume(65);
             setAngle(0);
         }
     } else {
@@ -101,6 +106,7 @@ void Plane::update(float deltaTime) {
     } else {
     setAngle(-45);
 }
+    updateSounds();
 
 //    std::cout<<"fuel after : "<<fuel<<std::endl;
     if (Terrain::instance->isIntersects(getGlobalBoundingCircle())) {
@@ -240,4 +246,10 @@ Circle Plane::getBCircleFromSprite(Sprite sprite) {
 
 bool Plane::isGodMode() {
     return godModeTimeLeft > 0;
+}
+
+void Plane::updateSounds(){
+    if(Scene::instance->isGameOver()){
+        Sounds::instance->stop_jjj();
+    }
 }
