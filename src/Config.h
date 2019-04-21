@@ -66,6 +66,9 @@ static const float UI_BAR_HEIGHT=7;//low=high))))
 static const float UI_GAS_WIDTH=400;
 static const float UI_GAS_HEIGHT=50;
 
+static const float UI_HEIGHT_CHANGE=150;
+static const float UI_COLLECTED_HEIGHT=110;
+static const float UI_COLLECTED_WIDTH=-260;
 static const float UI_BIRD_MAX_TIME=0.25;
 static const float UI_BIRD_MAX_SCALE=1.25;
 static const float UI_KIT_SIZE=100;

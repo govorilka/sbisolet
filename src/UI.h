@@ -13,6 +13,7 @@ private:
 
     RectangleShape rectangle,rectangle_in,bar;
     Font font;
+    Text collected;
     Text game_over;//main title
     Text score;
     Text best_score;

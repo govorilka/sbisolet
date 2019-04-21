@@ -39,6 +39,10 @@ UI::UI(RenderWindow &window) : rect(0, 0, window.getSize().x * 1000 / window.get
     score.setColor(Color::Red);//set it later
     score.setStyle(Text::Bold);
 
+    collected.setFont(Fothers);
+    collected.setCharacterSize(55);
+    collected.setColor(Color::White);//set it later
+    collected.setStyle(Text::Bold);
 
     its_fuel.setFont(Fothers);
     its_fuel.setCharacterSize(40);
@@ -81,7 +85,7 @@ void UI::update(float deltaTime) {
     count_rocketkit.setString("x "+std::to_string(scene->getRocketKits()));
     its_fuel.setString("FUEL");
     best_score.setString("Best result: " + std::to_string(scene->get_record()));
-
+    collected.setString("Collected: ");
     //gas
     rectangle.setSize(sf::Vector2f(UI_GAS_WIDTH*1.f, UI_GAS_HEIGHT*1.f));
     rectangle.setFillColor(UI_FUEL_BG_COLOR);
@@ -99,12 +103,15 @@ void UI::update(float deltaTime) {
     bar.setPosition(0,(UI_BAR_HEIGHT-1)*rect.height/UI_BAR_HEIGHT);
     //SETTING POSITIONS
     game_over.setPosition(rect.width / 2 - game_over.getLocalBounds().width / 2,
-                          rect.height / 2 - 1.5 * game_over.getLocalBounds().height);
+                          rect.height / 2 - 1.5 * game_over.getLocalBounds().height-UI_HEIGHT_CHANGE);
     score.setPosition(rect.width / 2 - score.getLocalBounds().width / 2,
-                      rect.height / 2 - score.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height);
+                      rect.height / 2 - score.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height-UI_HEIGHT_CHANGE);
+
+    collected.setPosition(rect.width / 2 +UI_COLLECTED_WIDTH+56,
+                          rect.height / 2 +UI_COLLECTED_HEIGHT-UI_HEIGHT_CHANGE);
 
     best_score.setPosition(rect.width / 2 - best_score.getLocalBounds().width / 2,
-                           rect.height / 2 - best_score.getLocalBounds().height / 2 + 1.5 * game_over.getLocalBounds().height);
+                           rect.height / 2 - best_score.getLocalBounds().height / 2 + 1.5 * game_over.getLocalBounds().height-UI_HEIGHT_CHANGE);
     //new_record.setPosition(rect.width / 2 - new_record.getLocalBounds().width / 2,
       //                rect.height / 2 - new_record.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height);
 
@@ -147,15 +154,29 @@ void UI::render(sf::RenderWindow &window) {
             window.draw(game_over);
             window.draw(score);
             window.draw(best_score);
+            bird.setPosition(rect.width/2+25,rect.height/2-new_record.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height+140-UI_HEIGHT_CHANGE+50);
+            count_birds.setString("x "+std::to_string(scene->getBirds()));
+            count_birds.setPosition(rect.width / 2 +UI_COLLECTED_WIDTH +340,
+                                    rect.height / 2 +UI_COLLECTED_HEIGHT-UI_HEIGHT_CHANGE+50);
+            collected.setPosition(rect.width / 2 +UI_COLLECTED_WIDTH+56,
+                                  rect.height / 2 +UI_COLLECTED_HEIGHT-UI_HEIGHT_CHANGE+50);
+            window.draw(bird);
+            window.draw(count_birds);
+            window.draw(collected);
         } else {
 
             new_record.setString("New world record: " + std::to_string(scene->get_record()));
             new_record.setPosition(rect.width / 2 - new_record.getLocalBounds().width / 2,
-                                   rect.height / 2 - new_record.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height);
+                                   rect.height / 2 - new_record.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height-UI_HEIGHT_CHANGE);
             window.draw(new_record);
             window.draw(game_over);
-
-
+            bird.setPosition(rect.width/2+25,rect.height/2-new_record.getLocalBounds().height / 2 + 0.5 * game_over.getLocalBounds().height+140-UI_HEIGHT_CHANGE);
+            count_birds.setString("x "+std::to_string(scene->getBirds()));
+            count_birds.setPosition(rect.width / 2 +UI_COLLECTED_WIDTH +340,
+                                    rect.height / 2 +UI_COLLECTED_HEIGHT-UI_HEIGHT_CHANGE);
+            window.draw(bird);
+            window.draw(count_birds);
+            window.draw(collected);
         }
 
     } else {
