@@ -48,7 +48,14 @@ bool Cloud::isReadyToShoot(){
 
 
 void Cloud::update(float deltaTime) {
-
+    FloatRect rect = cloud.getGlobalBounds();
+    float p = 0.2;
+    float width = rect.width;
+    float height = rect.height;
+    rect.left += width * p;
+    rect.top -= height * p;
+    rect.width = width * (1-p);
+    rect.height = height * (1-p);
     if (cloud.getGlobalBounds().intersects(Plane::instance->getGlobalBounds()) && Plane::instance->lostControlTime <= 0
         and not Plane::instance->isGodMode()) {
 

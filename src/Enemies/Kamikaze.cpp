@@ -28,6 +28,14 @@ void Kamikaze::update(float deltaTime) {
     }
     velocity.y = ENEMIES_KAMIKAZE_V_SPEED * curAngle / 45;
     sprite.setPosition(sprite.getPosition() + velocity * deltaTime);
+    FloatRect rect = sprite.getGlobalBounds();
+    float p = 0.2;
+    float width = rect.width;
+    float height = rect.height;
+    rect.left += width * p;
+    rect.top -= height * p;
+    rect.width = width * (1-p);
+    rect.height = height * (1-p);
     if (sprite.getGlobalBounds().intersects(Plane::instance->getGlobalBounds())) {
         Plane::instance->addHP(-ENEMIES_KAMIKAZE_DAMAGE);
         isAlive = false;
